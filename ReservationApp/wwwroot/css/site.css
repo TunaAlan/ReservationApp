@@ -1,0 +1,121 @@
+.main-header {
+  margin-bottom: 60px; 
+}
+
+.account-header {
+  margin-top: 60px; 
+}
+
+html {
+  font-size: 14px;
+  position: relative;
+  min-height: 100%;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 15px; 
+  }
+}
+
+.btn:focus, 
+.btn:active:focus, 
+.btn-link.nav-link:focus, 
+.form-control:focus, 
+.form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+body {
+  margin-bottom: 30px; 
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto; 
+  padding: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+p {
+  margin-bottom: 15px;
+  line-height: 1.6;
+}
+
+
+.btn {
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  text-transform: uppercase;
+}
+
+.admin_btn {
+  background-color: #96a8bb; 
+  color: white;
+  padding: 15px 30px; 
+  font-size: 18px; 
+  border-radius: 30px; 
+  text-align: center;
+  width: 150px;
+}
+
+.client_btn {
+  background-color: #007bff; 
+  color: white;
+  padding: 15px 30px; 
+  font-size: 18px; 
+  border-radius: 30px; 
+  text-align: center;
+  width: 150px;
+}
+
+.edit-delete-btn {
+  background-color: #28a745; 
+  color: white;
+  padding: 5px 15px; 
+  font-size: 14px; 
+  border-radius: 20px; 
+  text-align: center;
+  width: 100px;
+  margin-right: 10px;
+}
+
+.edit-delete-btn.delete {
+  background-color: #dc3545;
+  margin-right: 10;
+}
+
+.addReservation-btn {
+  background-color: #006eff; 
+  color: white;
+  padding: 5px 15px; 
+  font-size: 14px; 
+  border-radius: 20px; 
+  text-align: center;
+  width: 180px;
+  margin-right: 10px;
+}
+
+.button-container {
+  display: flex;
+  flex-direction: column; 
+  align-items: center;
+  gap: 10px; 
+}
+
+
+th, td {
+  text-align: center; 
+  vertical-align: middle; 
+  padding: 10px; 
+}
+
+td {
+  width: 150px; 
+}
+

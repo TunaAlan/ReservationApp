@@ -1,0 +1,47 @@
+@page
+@model ReservationApp.Pages.Client.Restaurants.RestaurantListModel
+@{
+}
+
+<h2 class="text-center mb-5">List of Restaurants</h2>
+
+
+<table class="table">
+     <tr>
+        <th>Restaurant Id</th>
+        <th>Name</th>
+        <th>Category</th>
+        <th>Address</th>
+        <th>Phone Number</th>
+        <th>Avg Price</th>
+        <th>Capacity</th>
+        <th>Image</th>
+        <th>Created At</th>
+        <th>Action</th>
+    </tr>
+
+    @foreach (var restaurant in Model.Restaurants)
+    {
+         <tr>
+            <td>@restaurant.RestaurantId</td>
+            <td>@restaurant.Name</td>
+            <td>@restaurant.Category</td>
+            <td>@restaurant.Address</td>
+            <td>@restaurant.PhoneNumber</td>
+            <td>@restaurant.AvgPrice</td>
+            <td>@restaurant.Capacity</td>
+            <td>
+               <img src="/Restaurant_Img/@restaurant.ImageFileName" alt="Restaurant_Img" width="100" />
+
+            </td>
+            <td>@restaurant.CreatedAt.ToString("MM/dd/yyyy")</td>
+            <td>
+                <div class="button-container">
+                <a class="btn addReservation-btn" href="/Client/Restaurants/AddReservation?id=@restaurant.RestaurantId">Add Reservation</a>                 
+                 </div>
+            </td>
+        </tr>
+
+    }
+    
+</table>

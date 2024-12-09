@@ -1,0 +1,31 @@
+@page
+@model ReservationApp.Pages.UserModel
+@{
+    if (Model.appUser == null)
+    {
+        <h2 class="text-center text-danger">No user information available. Please log in.</h2>
+    }
+    else
+    {
+        <h2 class="text-center">Welcome to your account</h2>
+
+        <div>
+            First Name: @Model.appUser.FirstName
+        </div>
+        <div>
+            Last Name: @Model.appUser.LastName
+        </div>
+        <div>
+            Email: @Model.appUser.Email
+        </div>
+        <div>
+            Phone: @Model.appUser.PhoneNumber
+        </div>
+        <div>
+            Address: @Model.appUser.Address
+        </div>
+        <div>
+            Created At: @Model.appUser.CreatedAt.ToString("MM/dd/yyyy")
+        </div>
+    }
+}

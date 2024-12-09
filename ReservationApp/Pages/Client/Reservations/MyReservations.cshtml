@@ -1,0 +1,45 @@
+@page
+@model ReservationApp.Pages.Client.Reservations.MyReservationsModel
+@using ReservationApp.Models
+@{
+    ViewData["Title"] = "My Reservations";
+}
+
+<h2 class="text-center mb-5">My Reservations</h2>
+
+<table class="table">
+    <tr>
+        <th>Reservation Id</th>
+        <th>Restaurant Name</th>
+        <th>Reservation Date</th>
+        <th>Number of People</th>
+        <th>Action</th>
+    </tr>
+
+    @foreach (var reservation in Model.MyReservations)
+    {
+        <tr>
+            <td>
+                @reservation.ReservationId
+            </td>
+
+            <td>
+                @Model.Restaurants.FirstOrDefault(r => r.RestaurantId == reservation.RestaurantId)?.Name
+            </td>
+
+            <td>
+                @reservation.ReservationDate.ToString("MM/dd/yyyy")
+            </td>
+
+            <td>
+                @reservation.NumberOfPeople
+            </td>
+
+            <td>
+                <div class="button-container">
+                    <a class="btn edit-delete-btn delete" href="/Client/Reservations/DeleteReservation?id=@reservation.ReservationId">Delete</a>
+                </div>
+            </td>
+        </tr>
+    }
+</table>

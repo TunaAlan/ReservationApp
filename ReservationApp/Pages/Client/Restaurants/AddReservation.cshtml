@@ -1,0 +1,90 @@
+@page
+@using ReservationApp.Models
+@model ReservationApp.Pages.Client.Restaurants.AddReservationModel
+@{
+    ViewData["Title"] = "Add Reservation";
+}
+
+<h2 class="text-center mb-4">Add Reservation</h2>
+
+<div class="container mt-4">
+    <div class="row d-flex align-items-stretch">
+        <div class="col-md-4 mb-4">
+            @if (Model.Restaurant != null)
+            {
+                <div class="card border-light shadow-sm h-100">
+                    <img src="/Restaurant_Img/@Model.Restaurant.ImageFileName" alt="Restaurant Image" class="card-img-top img-fluid" />
+                </div>
+            }
+            else
+            {
+                <div class="alert alert-warning" role="alert">
+                    Restaurant image not available.
+                </div>
+            }
+        </div>
+
+        <div class="col-md-8 mb-4">
+            @if (Model.Restaurant != null)
+            {
+                <div class="card border-light shadow-sm" style="width: 100%; max-width: 500px h-100;">
+                    <div class="card-body">
+                        <h5 class="card-text"><strong>Restaurant:</strong> @Model.Restaurant.Name</h5>
+                        <p class="card-text"><strong>Category:</strong> @Model.Restaurant.Category</p>
+                        <p class="card-text"><strong>Address:</strong> @Model.Restaurant.Address</p>
+                        <p class="card-text"><strong>Phone Number:</strong> @Model.Restaurant.PhoneNumber</p>
+                        <p class="card-text"><strong>Avg Price:</strong> @Model.Restaurant.AvgPrice</p>
+                        <p class="card-text"><strong>Capacity:</strong> @Model.Restaurant.Capacity</p>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="alert alert-warning" role="alert">
+                    Restaurant information not available.
+                </div>
+            }
+        </div>
+    </div>
+
+
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card border-light shadow-sm">
+                <div class="card-body">
+                    <div class="d-flex align-items-center mb-4">
+                        <div class="me-3">
+                            <i class="bi bi-person-circle fs-3"></i>
+                        </div>
+                        <div>
+                            <h5 class="card-title mb-0"><strong>User:</strong> @Model.LoggedInUserName</h5>
+                            <h5 class="card-title mb-0"><strong>UserId:</strong> @Model.LoggedInUserId</h5>
+
+                        </div>
+                    </div>
+
+                    <form method="post" class="border rounded p-4 bg-light">
+                        <div class="form-group mb-3">
+                            <label asp-for="Reservation.ReservationDate" class="form-label">Reservation Date</label>
+                            <input asp-for="Reservation.ReservationDate" class="form-control" type="date" />
+                            <span asp-validation-for="Reservation.ReservationDate" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="Reservation.NumberOfPeople" class="form-label">Number of People</label>
+                            <input asp-for="Reservation.NumberOfPeople" class="form-control" type="number" min="1" />
+                            <span asp-validation-for="Reservation.NumberOfPeople" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="submit" value="Add Reservation" class="btn btn-primary w-100" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css">

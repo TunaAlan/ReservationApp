@@ -1,0 +1,26 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Welcome to Restaurant Reservation System";
+}
+
+    <main class="container mt-5">
+        <div class="text-center">
+            <h1 class="display-4">@ViewData["Title"]</h1>
+            <p class="lead mt-5" style="font-size: 24px;">Choose Your Role:</p>
+            <div class="btn-group mt-4" role="group">
+                <a class="admin_btn mx-2" asp-page-handler="Admin">Admin</a>                
+                <a class="client_btn mx-2" asp-page-handler="Client">Client</a>
+            </div>
+        </div>
+    </main>
+
+   <footer class="footer py-3 bg-secondary text-white" style="margin-top: 200px;">
+        <div class="container text-center">
+            &copy; ReservationApp | Tuna ALAN | 2024
+        </div>
+    </footer>
+
+
+
+

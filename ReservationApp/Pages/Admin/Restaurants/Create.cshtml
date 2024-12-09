@@ -1,0 +1,101 @@
+@page
+@model ReservationApp.Pages.Admin.Restaurants.CreateModel
+@{
+    ViewData["Title"] = "Create";
+}
+
+<div class="row">
+    <div class="col-md-8 mx-auto rounded border p-3">
+        <h2 class="text-center mb-5">New Restaurant</h2>
+
+        @if (Model.errorMessage.Length > 0)
+        {
+            <div class='alert alert-warning alert-dismissible fade show' role='alert'>
+                <strong>@Model.errorMessage</strong>
+                <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
+            </div>
+        }
+        else if (Model.successMessage.Length > 0)
+        {
+            <div class='alert alert-success alert-dismissible fade show' role='alert'>
+                <strong>@Model.successMessage</strong>
+                <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
+            </div>
+        }
+
+        <form method="post" enctype="multipart/form-data">
+            <div class="row mb-3">
+                <label class="col-sm-4 col-form-label">Category</label>
+                <div class="col-sm-8">
+                    <select class="form-select" asp-for="RestaurantDto.Category">
+                        <option value="Seafood">Seafood</option>
+                        <option value="Fine Dining">Fine Dining</option>
+                        <option value="Fast Food">Fast Food</option>
+                        <option value="Japanese">Japanese</option>
+                        <option value="Italian">Italian</option>
+                        <option value="Cafe">Cafe</option>
+                        <option value="Steakhouse">Steakhouse</option>
+                        <option value="Bistro">Bistro</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label class="col-sm-4 col-form-label">Name</label>
+                <div class="col-sm-8">
+                    <input class="form-control" asp-for="RestaurantDto.Name">
+                    <span asp-validation-for="RestaurantDto.Name" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label class="col-sm-4 col-form-label">Address</label>
+                <div class="col-sm-8">
+                    <input class="form-control" asp-for="RestaurantDto.Address">
+                    <span asp-validation-for="RestaurantDto.Address" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label class="col-sm-4 col-form-label">PhoneNumber</label>
+                <div class="col-sm-8">
+                    <input class="form-control" asp-for="RestaurantDto.PhoneNumber">
+                    <span asp-validation-for="RestaurantDto.PhoneNumber" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label class="col-sm-4 col-form-label">AvgPrice</label>
+                <div class="col-sm-8">
+                    <input class="form-control" asp-for="RestaurantDto.AvgPrice">
+                    <span asp-validation-for="RestaurantDto.AvgPrice " class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label class="col-sm-4 col-form-label">Capacity</label>
+                <div class="col-sm-8">
+                    <input class="form-control" asp-for="RestaurantDto.Capacity">
+                    <span asp-validation-for="RestaurantDto.Capacity " class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label class="col-sm-4 col-form-label">Image</label>
+                <div class="col-sm-8">
+                    <input class="form-control" asp-for="RestaurantDto.ImageFile">
+                    <span asp-validation-for="RestaurantDto.ImageFile" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="offset-sm-4 col-sm-4 d-grid">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+                <div class="col-sm-4 d-grid">
+                    <a class="btn btn-outline-primary" href="/Admin/Restaurants/Index" role="button">Cancel</a>
+                </div>
+            </div>
+         </form>
+    </div>
+</div>
