@@ -22,8 +22,13 @@ services:
       ConnectionStrings__DefaultConnection: "Server=sqlserver,1433;Initial Catalog=ReservationData;User ID=sa;Password=${SA_PASSWORD};MultipleActiveResultSets=False;Encrypt=False;TrustServerCertificate=True;Connection Timeout=30;"
       SeedAdmin__Email: "${SEED_ADMIN_EMAIL:-}"
       SeedAdmin__Password: "${SEED_ADMIN_PASSWORD:-}"
+      SeedClient__Email: "${SEED_CLIENT_EMAIL:-}"
+      SeedClient__Password: "${SEED_CLIENT_PASSWORD:-}"
     ports:
       - "8080:8080"
+    volumes:
+      - reservationapp-dpkeys:/root/.aspnet/DataProtection-Keys
 
 volumes:
   reservationapp-sqldata:
+  reservationapp-dpkeys:
