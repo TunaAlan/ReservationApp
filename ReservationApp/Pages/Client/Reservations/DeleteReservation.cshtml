@@ -1,7 +1,18 @@
-@page
-@model ReservationApp.Pages.Client.Reservations.DeleteReservationModel 
+@page "{id:int}"
+@model ReservationApp.Pages.Client.Reservations.DeleteReservationModel
 @{
-    ViewData["Title"] = "Reservation Has Been Deleted!";
+    ViewData["Title"] = "Cancel Reservation";
 }
 
+<h1>Cancel Reservation</h1>
 
+<div class="alert alert-warning">
+    Are you sure you want to cancel this reservation for
+    <strong>@Model.Reservation?.ReservationDate.ToString("MM/dd/yyyy")</strong>
+    (@Model.Reservation?.NumberOfPeople people)? This action cannot be undone.
+</div>
+
+<form method="post" asp-page-handler="Delete">
+    <button type="submit" class="btn btn-danger">Cancel Reservation</button>
+    <a asp-page="./MyReservations" class="btn btn-secondary">Back</a>
+</form>

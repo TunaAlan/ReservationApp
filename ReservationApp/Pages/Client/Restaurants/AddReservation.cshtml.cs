@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using ReservationApp.Models;
@@ -8,6 +9,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace ReservationApp.Pages.Client.Restaurants
 {
+    [Authorize(Roles = "client")]
     public class AddReservationModel : PageModel
     {
         private readonly ApplicationDbContext _context;
@@ -21,7 +23,9 @@ namespace ReservationApp.Pages.Client.Restaurants
         }
 
         //Defining The Classes
-        [BindProperty]
+        // Not [BindProperty]: this is only ever populated server-side (OnGet/OnPost),
+        // never submitted by the form — binding it from POST body would run [Required]
+        // validation against empty Restaurant fields the form never sends, breaking every submit.
         public Restaurant? Restaurant { get; set; } = new Restaurant();
         [BindProperty]
         public Reservation Reservation { get; set; } = new Reservation();
@@ -30,7 +34,8 @@ namespace ReservationApp.Pages.Client.Restaurants
 
         // Error-Success Message
         public string errorMessage = "";
-        public string successMessage = "";
+        [TempData]
+        public string? SuccessMessage { get; set; }
         ////////////////////////
         
 
@@ -73,13 +78,31 @@ namespace ReservationApp.Pages.Client.Restaurants
                 return RedirectToPage("/NotFound");
             }
 
+            if (Reservation.ReservationDate.Date < DateTime.Now.Date)
+            {
+                errorMessage = "Reservation date cannot be in the past.";
+                Restaurant = restaurant;
+                return Page();
+            }
+
+            var alreadyBooked = await _context.Reservations
+                .Where(r => r.RestaurantId == id && r.ReservationDate.Date == Reservation.ReservationDate.Date)
+                .SumAsync(r => (int?)r.NumberOfPeople) ?? 0;
+
+            if (alreadyBooked + Reservation.NumberOfPeople > restaurant.Capacity)
+            {
+                errorMessage = $"Not enough capacity for that date. Available: {restaurant.Capacity - alreadyBooked} seats.";
+                Restaurant = restaurant;
+                return Page();
+            }
+
             var user = await _userManager.GetUserAsync(User);
 
             if (user != null)
             {
-                Reservation.UserId = user.Id; 
+                Reservation.UserId = user.Id;
             }
-            
+
             //Arrange the reservation date
             Reservation.RestaurantId = id;
             Reservation.CreatedAt = DateTime.Now;
@@ -91,7 +114,7 @@ namespace ReservationApp.Pages.Client.Restaurants
 
             if (changes > 0)
             {
-                successMessage = "Reservation successfully created.";
+                SuccessMessage = "Reservation successfully created.";
                 return RedirectToPage("/Client/Reservations/MyReservations"); // Redirect to a list of user reservations or another page
             }
             else

@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using ReservationApp.Services;
@@ -5,14 +6,14 @@ using ReservationApp.Models;
 
 namespace ReservationApp.Pages.Admin.Restaurants
 {
+    [Authorize(Roles = "admin")]
     public class DeleteModel : PageModel
     {
         private readonly IWebHostEnvironment _environment;
         private readonly ApplicationDbContext _context;
 
-        [BindProperty]
-        public RestaurantDto RestaurantDto { get; set; } = new RestaurantDto();
-        
+        public Restaurant? Restaurant { get; set; }
+
         // Dependency Injection Model
         public DeleteModel(IWebHostEnvironment environment, ApplicationDbContext context)
         {
@@ -20,7 +21,25 @@ namespace ReservationApp.Pages.Admin.Restaurants
             _context = context;
         }
 
+        // GET only shows a confirmation screen — it must never mutate data.
         public async Task<IActionResult> OnGetAsync(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            Restaurant = await _context.Restaurants.FindAsync(id);
+
+            if (Restaurant == null)
+            {
+                return NotFound();
+            }
+
+            return Page();
+        }
+
+        public async Task<IActionResult> OnPostAsync(int? id)
         {
             if (id == null)
             {
@@ -29,15 +48,13 @@ namespace ReservationApp.Pages.Admin.Restaurants
 
             var restaurant = await _context.Restaurants.FindAsync(id);
 
-            if (restaurant == null) 
+            if (restaurant == null)
             {
                 return NotFound();
             }
 
-            // Build the full path to the image file
-            var imageFullPath = Path.Combine(_environment.WebRootPath, "restaurants", restaurant.ImageFileName);
+            var imageFullPath = Path.Combine(_environment.WebRootPath, "Restaurant_Img", restaurant.ImageFileName);
 
-            // Check if the file exists before attempting to delete
             if (System.IO.File.Exists(imageFullPath))
             {
                 try
@@ -49,17 +66,11 @@ namespace ReservationApp.Pages.Admin.Restaurants
                     Console.WriteLine($"An error occurred while deleting the file: {ex.Message}");
                 }
             }
-            else
-            {
-                    Console.WriteLine("File not found: " + imageFullPath);
-            }
 
-            // Remove 
             _context.Restaurants.Remove(restaurant);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");
         }
-
     }
 }

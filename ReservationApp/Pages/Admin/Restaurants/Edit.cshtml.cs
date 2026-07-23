@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using ReservationApp.Services;
@@ -5,6 +6,7 @@ using ReservationApp.Models;
 
 namespace ReservationApp.Pages.Admin.Restaurants
 {
+    [Authorize(Roles = "admin")]
     public class EditModel : PageModel
     {
         private readonly IWebHostEnvironment _environment;
@@ -24,6 +26,9 @@ namespace ReservationApp.Pages.Admin.Restaurants
         public string errorMessage = "";
         public string successMessage = "";
         ///////////////////////
+
+        private static readonly string[] AllowedImageExtensions = { ".jpg", ".jpeg", ".png", ".webp" };
+        private const long MaxImageSizeBytes = 5 * 1024 * 1024; // 5 MB
 
         //Fetch The Old Data
         public async Task<IActionResult> OnGetAsync(int id)
@@ -75,17 +80,27 @@ namespace ReservationApp.Pages.Admin.Restaurants
 
             if (RestaurantDto.ImageFile != null)
             {
-                
-                string newFileName = DateTime.Now.ToString("yyyyMMddHHmmssfff") + Path.GetExtension(RestaurantDto.ImageFile.FileName);
+                var extension = Path.GetExtension(RestaurantDto.ImageFile.FileName).ToLowerInvariant();
+                if (!AllowedImageExtensions.Contains(extension))
+                {
+                    errorMessage = "Only .jpg, .jpeg, .png, and .webp image files are allowed.";
+                    return Page();
+                }
+
+                if (RestaurantDto.ImageFile.Length > MaxImageSizeBytes)
+                {
+                    errorMessage = "Image file must be smaller than 5 MB.";
+                    return Page();
+                }
+
+                string newFileName = DateTime.Now.ToString("yyyyMMddHHmmssfff") + extension;
                 string imagePath = Path.Combine(_environment.WebRootPath, "Restaurant_Img", newFileName);
 
-                
                 using (var stream = new FileStream(imagePath, FileMode.Create))
                 {
                     await RestaurantDto.ImageFile.CopyToAsync(stream);
                 }
 
-                
                 restaurant.ImageFileName = newFileName;
             }
 

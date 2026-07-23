@@ -1,4 +1,5 @@
 
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using ReservationApp.Models;
@@ -6,6 +7,7 @@ using ReservationApp.Services;
 
 namespace ReservationApp.Pages.Admin.Restaurants
 {
+    [Authorize(Roles = "admin")]
     public class CreateModel : PageModel
     {
         private readonly IWebHostEnvironment environment;
@@ -26,30 +28,43 @@ namespace ReservationApp.Pages.Admin.Restaurants
         public string errorMessage = "";
         public string successMessage = "";
 
+        private static readonly string[] AllowedImageExtensions = { ".jpg", ".jpeg", ".png", ".webp" };
+        private const long MaxImageSizeBytes = 5 * 1024 * 1024; // 5 MB
 
         public void OnPost()
         {
             if (!ModelState.IsValid)
             {
-                errorMessage = "Please provide all the required fields"; 
-                return; 
+                errorMessage = "Please provide all the required fields";
+                return;
             }
 
-            if (RestaurantDto.ImageFile == null) 
+            if (RestaurantDto.ImageFile == null)
             {
-                ModelState.AddModelError("RestaurantDto.ImageFile", "The image file is required");
+                errorMessage = "The image file is required.";
+                return;
             }
 
-            //save the image ??????
-            string newFileName = DateTime.Now.ToString("yyyyMMddHHmmssfff");
-            newFileName += Path.GetExtension(RestaurantDto.ImageFile!.FileName);
+            var extension = Path.GetExtension(RestaurantDto.ImageFile.FileName).ToLowerInvariant();
+            if (!AllowedImageExtensions.Contains(extension))
+            {
+                errorMessage = "Only .jpg, .jpeg, .png, and .webp image files are allowed.";
+                return;
+            }
+
+            if (RestaurantDto.ImageFile.Length > MaxImageSizeBytes)
+            {
+                errorMessage = "Image file must be smaller than 5 MB.";
+                return;
+            }
+
+            string newFileName = DateTime.Now.ToString("yyyyMMddHHmmssfff") + extension;
 
             string imageFullPath = environment.WebRootPath + "/Restaurant_Img/" + newFileName;
             using (var stream = System.IO.File.Create(imageFullPath))
             {
                 RestaurantDto.ImageFile.CopyTo(stream);
             }
-            ///////////////////////
             
             //Saving the Restaurant On the List
             Restaurant restaurant = new Restaurant()

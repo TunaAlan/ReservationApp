@@ -20,6 +20,9 @@ namespace ReservationApp.Pages.Client.Reservations
             _userManager = userManager;
         }
 
+        [TempData]
+        public string? SuccessMessage { get; set; }
+
         //Defining Classes as a List
         public IList<Reservation>? MyReservations { get; set; }
         public IList<Restaurant>? Restaurants { get; set; } = new List<Restaurant>(); 

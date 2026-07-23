@@ -1,10 +1,23 @@
-@page
+@page "{id:int}"
 @model ReservationApp.Pages.Admin.Restaurants.DeleteModel
 @{
+    ViewData["Title"] = "Delete Restaurant";
 }
 
-<h1>@ViewData["Title"]</h1>
+<h1>Delete Restaurant</h1>
 
-<div>
-    
+<div class="alert alert-warning">
+    Are you sure you want to delete <strong>@Model.Restaurant?.Name</strong>? This action cannot be undone.
 </div>
+
+<dl class="row">
+    <dt class="col-sm-2">Category</dt>
+    <dd class="col-sm-10">@Model.Restaurant?.Category</dd>
+    <dt class="col-sm-2">Address</dt>
+    <dd class="col-sm-10">@Model.Restaurant?.Address</dd>
+</dl>
+
+<form method="post">
+    <button type="submit" class="btn btn-danger">Delete</button>
+    <a asp-page="./Index" class="btn btn-secondary">Cancel</a>
+</form>

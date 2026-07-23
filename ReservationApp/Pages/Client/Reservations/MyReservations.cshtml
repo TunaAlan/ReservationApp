@@ -7,6 +7,13 @@
 
 <h2 class="text-center mb-5">My Reservations</h2>
 
+@if (!string.IsNullOrEmpty(Model.SuccessMessage))
+{
+    <div class="alert alert-success" role="alert">
+        @Model.SuccessMessage
+    </div>
+}
+
 <table class="table">
     <tr>
         <th>Reservation Id</th>
@@ -37,7 +44,7 @@
 
             <td>
                 <div class="button-container">
-                    <a class="btn edit-delete-btn delete" href="/Client/Reservations/DeleteReservation?id=@reservation.ReservationId">Delete</a>
+                    <a class="btn edit-delete-btn delete" href="/Client/Reservations/DeleteReservation/@reservation.ReservationId">Delete</a>
                 </div>
             </td>
         </tr>
