@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ReservationApp.Migrations
 {
     /// <inheritdoc />
-    public partial class UserDataMigration : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -54,6 +54,26 @@ namespace ReservationApp.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Restaurants",
+                columns: table => new
+                {
+                    RestaurantId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Category = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    AvgPrice = table.Column<int>(type: "int", nullable: false),
+                    Capacity = table.Column<int>(type: "int", nullable: false),
+                    ImageFileName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Restaurants", x => x.RestaurantId);
                 });
 
             migrationBuilder.CreateTable(
@@ -162,13 +182,65 @@ namespace ReservationApp.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Reservations",
+                columns: table => new
+                {
+                    ReservationId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    RestaurantId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    ReservationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    NumberOfPeople = table.Column<int>(type: "int", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Reservations", x => x.ReservationId);
+                    table.ForeignKey(
+                        name: "FK_Reservations_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Reservations_Restaurants_RestaurantId",
+                        column: x => x.RestaurantId,
+                        principalTable: "Restaurants",
+                        principalColumn: "RestaurantId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "3fe3b7e2-fc86-4195-a91f-3ab10d2db18d", null, "admin", "admin" },
-                    { "c6e4e7c1-91b2-4745-9f5f-3891b98cc130", null, "client", "client" }
+                    { "6d3eaac1-ce76-43e8-a3dd-c37a7a7f1226", null, "admin", "admin" },
+                    { "fec34f2f-69e6-488a-89b2-7c01deb08937", null, "client", "client" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Restaurants",
+                columns: new[] { "RestaurantId", "Address", "AvgPrice", "Capacity", "Category", "CreatedAt", "ImageFileName", "Name", "PhoneNumber" },
+                values: new object[,]
+                {
+                    { 1, "12 Shoreline Ave, Seaside", 75, 120, "Seafood", new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "oceans_bounty.jpg", "Ocean's Bounty", "555-9876" },
+                    { 2, "10 Ocean Drive, Shoreline City", 85, 150, "Seafood", new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "fishermans_wharf.jpg", "The Fisherman's Wharf", "555-1111" },
+                    { 3, "22 High Street, Uptown", 200, 80, "Fine Dining", new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "golden_fork.jpg", "The Golden Fork", "555-2345" },
+                    { 4, "33 Luxury Ave, High Hill", 250, 70, "Fine Dining", new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "elegance_palace.jpg", "Elegance Palace", "555-2222" },
+                    { 5, "85 Fast Lane, Speedy City", 15, 60, "Fast Food", new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "quick_bite.jpg", "QuickBite", "555-7654" },
+                    { 6, "99 Quick Rd, Rushville", 18, 45, "Fast Food", new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "speedy_bites.jpg", "Speedy Bites", "555-3333" },
+                    { 7, "4 Blossom Rd, Little Tokyo", 40, 50, "Japanese", new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "sakura_sushi.jpg", "Sakura Sushi", "555-3210" },
+                    { 8, "25 Sakura St, New Kyoto", 50, 60, "Japanese", new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "tokyo_delight.jpg", "Tokyo Delight", "555-4444" },
+                    { 9, "15 Olive St, Old Town", 60, 70, "Italian", new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "mamma_mia.jpg", "Mamma Mia", "555-9087" },
+                    { 10, "18 Roman Way, Little Italy", 65, 80, "Italian", new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "pasta_house.jpg", "Pasta House", "555-5555" },
+                    { 11, "9 Coffee Blvd, Downtown", 12, 40, "Cafe", new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "brewed_awakening.jpg", "Brewed Awakening", "555-4532" },
+                    { 12, "44 Bean St, Coffeeville", 15, 35, "Cafe", new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "morning_brew.jpg", "Morning Brew", "555-6666" },
+                    { 13, "34 Beef Rd, Meat District", 90, 90, "Steakhouse", new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "grill_master.jpg", "Grill Master", "555-8723" },
+                    { 14, "52 Steakhouse Rd, Beef City", 100, 85, "Steakhouse", new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "prime_cut_grill.jpg", "Prime Cut Grill", "555-7777" },
+                    { 15, "11 Cozy Corner, Riverside", 45, 30, "Bistro", new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "le_petit_bistro.jpg", "Le Petit Bistro", "555-6789" },
+                    { 16, "3 Cozy Ln, Riverside", 40, 25, "Bistro", new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "bistro_bella.jpg", "Bistro Bella", "555-8888" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -209,6 +281,16 @@ namespace ReservationApp.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Reservations_RestaurantId",
+                table: "Reservations",
+                column: "RestaurantId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Reservations_UserId",
+                table: "Reservations",
+                column: "UserId");
         }
 
         /// <inheritdoc />
@@ -230,10 +312,16 @@ namespace ReservationApp.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "Reservations");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Restaurants");
         }
     }
 }
