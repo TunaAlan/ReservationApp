@@ -14,7 +14,9 @@ namespace ReservationApp.Pages.Admin.Restaurants
 
         [BindProperty]
         public RestaurantDto RestaurantDto { get; set; } = new RestaurantDto();
-        
+
+        public string? CurrentImageFileName { get; set; }
+
         // Dependency Injection Model
         public EditModel(IWebHostEnvironment environment, ApplicationDbContext context)
         {
@@ -48,11 +50,11 @@ namespace ReservationApp.Pages.Admin.Restaurants
                 PhoneNumber = restaurant.PhoneNumber,
                 AvgPrice = restaurant.AvgPrice,
                 Capacity = restaurant.Capacity,
-                
-            };
-            
 
-            return Page(); 
+            };
+            CurrentImageFileName = restaurant.ImageFileName;
+
+            return Page();
         }
 
 
@@ -70,7 +72,9 @@ namespace ReservationApp.Pages.Admin.Restaurants
             {
                 return Redirect("/Admin/Restaurants/Index");
             }
-            
+
+            CurrentImageFileName = restaurant.ImageFileName;
+
             restaurant.Category = RestaurantDto.Category;
             restaurant.Name = RestaurantDto.Name;
             restaurant.Address = RestaurantDto.Address;

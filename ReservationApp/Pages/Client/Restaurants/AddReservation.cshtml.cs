@@ -28,9 +28,12 @@ namespace ReservationApp.Pages.Client.Restaurants
         // validation against empty Restaurant fields the form never sends, breaking every submit.
         public Restaurant? Restaurant { get; set; } = new Restaurant();
         [BindProperty]
-        public Reservation Reservation { get; set; } = new Reservation();
+        public Reservation Reservation { get; set; } = new Reservation
+        {
+            ReservationDate = DateTime.Today,
+            NumberOfPeople = 1,
+        };
         public string? LoggedInUserName { get; set; } = "";
-        public string? LoggedInUserId { get; set;}
 
         // Error-Success Message
         public string errorMessage = "";
@@ -46,15 +49,13 @@ namespace ReservationApp.Pages.Client.Restaurants
 
             if (Restaurant == null)
             {
-                return RedirectToPage("/Client/ReservationList");
+                return RedirectToPage("/Client/Restaurants/RestaurantList");
             }
 
-            //Fetch UserName and Id
             var user = await _userManager.GetUserAsync(User);
             if (user != null)
             {
                 LoggedInUserName = user.UserName;
-                LoggedInUserId = user.Id;
             }
 
             return Page();
@@ -75,7 +76,7 @@ namespace ReservationApp.Pages.Client.Restaurants
 
             if (restaurant == null)
             {
-                return RedirectToPage("/NotFound");
+                return NotFound();
             }
 
             if (Reservation.ReservationDate.Date < DateTime.Now.Date)

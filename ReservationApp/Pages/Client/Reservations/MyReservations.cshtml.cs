@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using ReservationApp.Models;
@@ -8,6 +9,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace ReservationApp.Pages.Client.Reservations
 {
+    [Authorize(Roles = "client")]
     public class MyReservationsModel : PageModel
     {
         private readonly ApplicationDbContext _context;
@@ -34,7 +36,7 @@ namespace ReservationApp.Pages.Client.Reservations
 
         if (user == null)
         {
-            return RedirectToPage("/Account/Login"); 
+            return Redirect("/Identity/Account/Login");
         }
                                                            //Check for User Id
         MyReservations = await _context.Reservations.Where(r => r.UserId == user.Id).ToListAsync();

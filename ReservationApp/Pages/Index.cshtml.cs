@@ -12,24 +12,24 @@ public class IndexModel : PageModel
             return Redirect("/Identity/Account/Login"); 
         }
 
-        if (User.IsInRole("Admin")) 
+        if (User.IsInRole("admin"))
         {
-            return Redirect("/Admin/Restaurants/Index"); 
+            return Redirect("/Admin/Restaurants/Index");
         }
 
-        return Redirect("/"); 
+        return Redirect("/");
     }
 
     public IActionResult OnGetClient()
     {
-        if (User?.Identity == null || !User.Identity.IsAuthenticated) 
+        if (User?.Identity == null || !User.Identity.IsAuthenticated)
         {
-            return Redirect("/Identity/Account/Login"); 
+            return Redirect("/Identity/Account/Login");
         }
 
-        if (User.IsInRole("Client")) 
+        if (User.IsInRole("client"))
         {
-            return Redirect("/Client/RestaurantList"); 
+            return Redirect("/Client/Restaurants/RestaurantList");
         }
 
         return Redirect("/");
