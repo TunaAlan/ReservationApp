@@ -1,0 +1,29 @@
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: reservationapp-sqlserver
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_SA_PASSWORD: "${SA_PASSWORD}"
+    ports:
+      - "1433:1433"
+    volumes:
+      - reservationapp-sqldata:/var/opt/mssql
+
+  app:
+    build:
+      context: ./ReservationApp
+      dockerfile: Dockerfile
+    container_name: reservationapp-app
+    depends_on:
+      - sqlserver
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ConnectionStrings__DefaultConnection: "Server=sqlserver,1433;Initial Catalog=ReservationData;User ID=sa;Password=${SA_PASSWORD};MultipleActiveResultSets=False;Encrypt=False;TrustServerCertificate=True;Connection Timeout=30;"
+      SeedAdmin__Email: "${SEED_ADMIN_EMAIL:-}"
+      SeedAdmin__Password: "${SEED_ADMIN_PASSWORD:-}"
+    ports:
+      - "8080:8080"
+
+volumes:
+  reservationapp-sqldata:
