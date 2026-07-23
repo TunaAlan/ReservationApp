@@ -5,7 +5,7 @@
     ViewData["Title"] = "My Reservations";
 }
 
-<h2 class="text-center mb-5">My Reservations</h2>
+<h2 class="text-center mb-5"><i class="bi bi-journal-check"></i> My Reservations</h2>
 
 @if (!string.IsNullOrEmpty(Model.SuccessMessage))
 {
@@ -14,39 +14,50 @@
     </div>
 }
 
-<table class="table">
-    <tr>
-        <th>Reservation Id</th>
-        <th>Restaurant Name</th>
-        <th>Reservation Date</th>
-        <th>Number of People</th>
-        <th>Action</th>
-    </tr>
-
-    @foreach (var reservation in Model.MyReservations)
-    {
+@if (Model.MyReservations?.Any() != true)
+{
+    <div class="text-center text-muted py-5">
+        <i class="bi bi-calendar-x display-4"></i>
+        <p class="lead mt-3">You have no reservations yet.</p>
+        <a class="btn btn-primary" href="/Client/Restaurants/RestaurantList"><i class="bi bi-search"></i> Browse Restaurants</a>
+    </div>
+}
+else
+{
+    <table class="table table-hover align-middle">
         <tr>
-            <td>
-                @reservation.ReservationId
-            </td>
-
-            <td>
-                @Model.Restaurants.FirstOrDefault(r => r.RestaurantId == reservation.RestaurantId)?.Name
-            </td>
-
-            <td>
-                @reservation.ReservationDate.ToString("MM/dd/yyyy")
-            </td>
-
-            <td>
-                @reservation.NumberOfPeople
-            </td>
-
-            <td>
-                <div class="button-container">
-                    <a class="btn edit-delete-btn delete" href="/Client/Reservations/DeleteReservation/@reservation.ReservationId">Delete</a>
-                </div>
-            </td>
+            <th>Reservation Id</th>
+            <th>Restaurant Name</th>
+            <th>Reservation Date</th>
+            <th>Number of People</th>
+            <th>Action</th>
         </tr>
-    }
-</table>
+
+        @foreach (var reservation in Model.MyReservations)
+        {
+            <tr>
+                <td>
+                    @reservation.ReservationId
+                </td>
+
+                <td>
+                    @Model.Restaurants.FirstOrDefault(r => r.RestaurantId == reservation.RestaurantId)?.Name
+                </td>
+
+                <td>
+                    @reservation.ReservationDate.ToString("MM/dd/yyyy")
+                </td>
+
+                <td>
+                    @reservation.NumberOfPeople
+                </td>
+
+                <td>
+                    <div class="button-container">
+                        <a class="action-btn edit-delete-btn delete" href="/Client/Reservations/DeleteReservation/@reservation.ReservationId"><i class="bi bi-x-circle-fill"></i> Cancel</a>
+                    </div>
+                </td>
+            </tr>
+        }
+    </table>
+}
