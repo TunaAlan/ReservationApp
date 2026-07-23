@@ -6,18 +6,19 @@
 
     <main class="container mt-5">
         <div class="text-center">
+            <i class="bi bi-shop display-1 text-primary"></i>
             <h1 class="display-4">@ViewData["Title"]</h1>
-            <p class="lead mt-5" style="font-size: 24px;">Choose Your Role:</p>
-            <div class="btn-group mt-4" role="group">
-                <a class="admin_btn mx-2" asp-page-handler="Admin">Admin</a>                
-                <a class="client_btn mx-2" asp-page-handler="Client">Client</a>
+            <p class="lead mt-3" style="font-size: 22px;">Choose Your Role:</p>
+            <div class="d-flex justify-content-center gap-3 mt-4 flex-wrap">
+                <a class="role-btn admin_btn" asp-page-handler="Admin"><i class="bi bi-person-gear"></i> Admin</a>
+                <a class="role-btn client_btn" asp-page-handler="Client"><i class="bi bi-person"></i> Client</a>
             </div>
         </div>
     </main>
 
    <footer class="footer py-3 bg-secondary text-white" style="margin-top: 200px;">
         <div class="container text-center">
-            &copy; ReservationApp | Tuna ALAN | 2024
+            &copy; @DateTime.Now.Year ReservationApp | Tuna ALAN
         </div>
     </footer>
 

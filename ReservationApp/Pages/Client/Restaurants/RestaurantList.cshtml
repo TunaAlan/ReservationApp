@@ -3,45 +3,61 @@
 @{
 }
 
-<h2 class="text-center mb-5">List of Restaurants</h2>
+<h2 class="text-center mb-5"><i class="bi bi-shop-window"></i> List of Restaurants</h2>
 
+@if (!Model.Restaurants.Any())
+{
+    <div class="text-center text-muted py-5">
+        <i class="bi bi-shop display-4"></i>
+        <p class="lead mt-3">No restaurants available yet. Check back soon.</p>
+    </div>
+}
+else
+{
+    <div class="row g-4">
+        @foreach (var restaurant in Model.Restaurants)
+        {
+            <div class="col-sm-6 col-lg-4">
+                <div class="card h-100 shadow-sm">
+                    <img src="/Restaurant_Img/@restaurant.ImageFileName" class="card-img-top restaurant-card-img" alt="@restaurant.Name" />
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">@restaurant.Name</h5>
+                        <span class="badge bg-secondary align-self-start mb-2">@restaurant.Category</span>
+                        <p class="card-text text-muted mb-3">
+                            <i class="bi bi-geo-alt"></i> @restaurant.Address
+                        </p>
+                        <div class="mt-auto d-flex gap-2">
+                            <button type="button" class="btn btn-outline-secondary flex-fill" data-bs-toggle="modal" data-bs-target="#details-@restaurant.RestaurantId">
+                                <i class="bi bi-info-circle"></i> Details
+                            </button>
+                            <a class="btn btn-primary flex-fill" href="/Client/Restaurants/AddReservation?id=@restaurant.RestaurantId">
+                                <i class="bi bi-calendar-plus"></i> Reserve
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-<table class="table">
-     <tr>
-        <th>Restaurant Id</th>
-        <th>Name</th>
-        <th>Category</th>
-        <th>Address</th>
-        <th>Phone Number</th>
-        <th>Avg Price</th>
-        <th>Capacity</th>
-        <th>Image</th>
-        <th>Created At</th>
-        <th>Action</th>
-    </tr>
-
-    @foreach (var restaurant in Model.Restaurants)
-    {
-         <tr>
-            <td>@restaurant.RestaurantId</td>
-            <td>@restaurant.Name</td>
-            <td>@restaurant.Category</td>
-            <td>@restaurant.Address</td>
-            <td>@restaurant.PhoneNumber</td>
-            <td>@restaurant.AvgPrice</td>
-            <td>@restaurant.Capacity</td>
-            <td>
-               <img src="/Restaurant_Img/@restaurant.ImageFileName" alt="Restaurant_Img" width="100" />
-
-            </td>
-            <td>@restaurant.CreatedAt.ToString("MM/dd/yyyy")</td>
-            <td>
-                <div class="button-container">
-                <a class="btn addReservation-btn" href="/Client/Restaurants/AddReservation?id=@restaurant.RestaurantId">Add Reservation</a>                 
-                 </div>
-            </td>
-        </tr>
-
-    }
-    
-</table>
+            <div class="modal fade" id="details-@restaurant.RestaurantId" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title"><i class="bi bi-shop"></i> @restaurant.Name</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <img src="/Restaurant_Img/@restaurant.ImageFileName" class="img-fluid rounded mb-3 restaurant-card-img" alt="@restaurant.Name" />
+                            <partial name="_RestaurantDetailList" model="restaurant" />
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <a class="btn btn-primary" href="/Client/Restaurants/AddReservation?id=@restaurant.RestaurantId">
+                                <i class="bi bi-calendar-plus"></i> Reserve Now
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}

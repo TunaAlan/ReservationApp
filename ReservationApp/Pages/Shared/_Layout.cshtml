@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - ReservationApp</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap-icons/font/bootstrap-icons.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/ReservationApp.styles.css" asp-append-version="true" />
 </head>
@@ -12,7 +13,7 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-light bg-white border-bottom shadow-sm mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-page="/Index">ReservationApp</a>
+                <a class="navbar-brand" asp-area="" asp-page="/Index"><i class="bi bi-shop me-1"></i>ReservationApp</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -21,11 +22,29 @@
 
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
+                            <a class="nav-link" asp-area="" asp-page="/Index"><i class="bi bi-house"></i> Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
-                        </li>
+                        @if (User.IsInRole("admin"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" href="/Admin/Restaurants/Index"><i class="bi bi-building"></i> Restaurant Management</a>
+                            </li>
+                        }
+                        else if (User.IsInRole("client"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" href="/Client/Restaurants/RestaurantList"><i class="bi bi-shop-window"></i> Restaurants</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/Client/Reservations/MyReservations"><i class="bi bi-journal-check"></i> My Reservations</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-page="/Privacy"><i class="bi bi-shield-check"></i> Privacy</a>
+                            </li>
+                        }
                     </ul>
                     
                     <partial name="_LoginPartial" />
@@ -51,7 +70,6 @@
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>

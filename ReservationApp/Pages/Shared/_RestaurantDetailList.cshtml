@@ -1,0 +1,24 @@
+@model ReservationApp.Models.Restaurant
+
+<dl class="detail-list mb-0">
+    <div class="detail-row">
+        <dt><span class="detail-icon"><i class="bi bi-tag"></i></span> Category</dt>
+        <dd><span class="badge bg-secondary">@Model.Category</span></dd>
+    </div>
+    <div class="detail-row">
+        <dt><span class="detail-icon"><i class="bi bi-geo-alt"></i></span> Address</dt>
+        <dd>@Model.Address</dd>
+    </div>
+    <div class="detail-row">
+        <dt><span class="detail-icon"><i class="bi bi-telephone"></i></span> Phone</dt>
+        <dd>@Model.PhoneNumber</dd>
+    </div>
+    <div class="detail-row">
+        <dt><span class="detail-icon"><i class="bi bi-cash"></i></span> Avg Price</dt>
+        <dd>@Model.AvgPrice ₺</dd>
+    </div>
+    <div class="detail-row detail-row-last">
+        <dt><span class="detail-icon"><i class="bi bi-people"></i></span> Capacity</dt>
+        <dd>@Model.Capacity people</dd>
+    </div>
+</dl>

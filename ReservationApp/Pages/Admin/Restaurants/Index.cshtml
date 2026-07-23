@@ -1,19 +1,27 @@
 @page
 @model ReservationApp.Pages.Admin.Restaurants.IndexModel
 @{
+    string CategoryBadgeClass(string category) => category switch
+    {
+        "Seafood" => "bg-info text-dark",
+        "Fine Dining" => "bg-dark",
+        "Fast Food" => "bg-warning text-dark",
+        "Japanese" => "bg-danger",
+        "Italian" => "bg-success",
+        "Cafe" => "bg-secondary",
+        "Steakhouse" => "bg-primary",
+        "Bistro" => "bg-light text-dark border",
+        _ => "bg-secondary"
+    };
 }
 
-<h2 class="text-center mb-5">List of Reservation Places</h2>
+<h2 class="text-center mb-4"><i class="bi bi-building"></i> List of Reservation Places</h2>
 
-<div class="row mb-5">
-    <div class="col">
-        <a class='btn btn-primary' href='/Admin/Restaurants/Create'>New Restaurant</a>
-    </div>
-    <div class="col">
-    </div>
+<div class="mb-3">
+    <a class="btn btn-primary" href="/Admin/Restaurants/Create"><i class="bi bi-plus-lg"></i> New Restaurant</a>
 </div>
 
-<table class="table">
+<table class="table table-striped table-hover align-middle">
      <tr>
         <th>Restaurant Id</th>
         <th>Name</th>
@@ -32,25 +40,23 @@
          <tr>
             <td>@restaurant.RestaurantId</td>
             <td>@restaurant.Name</td>
-            <td>@restaurant.Category</td>
-            <td>@restaurant.Address</td>
+            <td><span class="badge @CategoryBadgeClass(restaurant.Category)">@restaurant.Category</span></td>
+            <td class="address-cell" title="@restaurant.Address">@restaurant.Address</td>
             <td>@restaurant.PhoneNumber</td>
-            <td>@restaurant.AvgPrice</td>
+            <td>@restaurant.AvgPrice ₺</td>
             <td>@restaurant.Capacity</td>
             <td>
-               <img src="/Restaurant_Img/@restaurant.ImageFileName" alt="Restaurant_Img" width="100" />
-
+               <img src="/Restaurant_Img/@restaurant.ImageFileName" alt="@restaurant.Name" class="restaurant-img-thumb" />
             </td>
             <td>@restaurant.CreatedAt.ToString("MM/dd/yyyy")</td>
             <td>
                 <div class="button-container">
-                <a class="btn edit-delete-btn" href="/Admin/Restaurants/Edit?id=@restaurant.RestaurantId">Edit</a>
-                <a class="btn edit-delete-btn delete" href="/Admin/Restaurants/Delete/@restaurant.RestaurantId">Delete</a>
-                 
-                 </div>
+                    <a class="action-btn edit-delete-btn" href="/Admin/Restaurants/Edit?id=@restaurant.RestaurantId"><i class="bi bi-pencil-fill"></i> Edit</a>
+                    <a class="action-btn edit-delete-btn delete" href="/Admin/Restaurants/Delete/@restaurant.RestaurantId"><i class="bi bi-trash-fill"></i> Delete</a>
+                </div>
             </td>
         </tr>
 
     }
-    
+
 </table>
