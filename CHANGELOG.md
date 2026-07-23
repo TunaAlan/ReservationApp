@@ -6,6 +6,28 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 > **Status:** Pre-production demo / learning project — no formal release has shipped yet.
 
+## [0.3.0] - 2026-07-23
+
+**Fixed — Additional Crash Bugs**
+- Welcome page role buttons used the wrong role-name casing (`"Admin"`/`"Client"` vs. the actual `"admin"`/`"client"`) and an invalid redirect path, so they silently did nothing for a logged-in user. Fixed both.
+- `MyReservations` had no `[Authorize]` and a broken `RedirectToPage("/Account/Login")` (missing the `Identity` area) — an unauthenticated visit crashed with a 500. Added `[Authorize(Roles = "client")]` and corrected the redirect.
+- `AddReservation` had two more broken `RedirectToPage` targets (`/Client/ReservationList`, `/NotFound`) that crashed with a 500 for a deleted or invalid restaurant id. Corrected both.
+- `AddReservationModel.Restaurant` was `[BindProperty]`-bound but never submitted by the form; once `Restaurant` gained `[Required]` fields (0.2.0), every reservation submission silently failed validation. Removed `[BindProperty]`.
+- Two CSS bugs: a missing unit (`margin-right: 10` → `10px`) and trailing whitespace inside four `asp-validation-for` attributes that broke validation-message binding.
+- `Edit.cshtml`'s "Current Image" preview referenced the wrong property (the upload `IFormFile` instead of the stored filename) — always rendered broken.
+
+**Infrastructure — Data Protection Key Persistence**
+- Rebuilding the Docker `app` container regenerated the Data Protection key each time, silently logging everyone out on every rebuild. Added a named volume (`reservationapp-dpkeys`) so the key survives rebuilds.
+
+**Added — Seeded Client Account**
+- Added a `SeedClient` counterpart to `SeedAdmin` (same idempotent pattern, factored into a shared `SeedUserAsync` helper in `Program.cs`) so a ready-to-use client login exists alongside the admin one.
+
+**Frontend — Visual Refresh**
+- Restyled the welcome page, navbar, admin restaurant list, and client restaurant browsing/reservation flow: icons, consistent button sizing/colors, restaurant cards with a detail modal, role-based navigation, and a shared `_RestaurantDetailList` partial. Cosmetic only — no behavior change.
+
+**Removed**
+- Deleted unused scaffold leftovers: `ScaffoldingReadMe.txt`, an empty `reservation.http`, and `wwwroot/js/site.js` (comments only, no code) along with its now-dead `<script>` reference.
+
 ## [0.2.0] - 2026-07-23
 
 **Security — Missing Authorization on Mutating Pages**
