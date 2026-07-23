@@ -1,0 +1,14 @@
+## .NET
+bin/
+obj/
+*.user
+.vs/
+
+## LibMan-restored client-side libraries (see ReservationApp/libman.json)
+ReservationApp/wwwroot/lib/
+
+## macOS
+.DS_Store
+
+## Local secrets (see .env.example)
+.env
