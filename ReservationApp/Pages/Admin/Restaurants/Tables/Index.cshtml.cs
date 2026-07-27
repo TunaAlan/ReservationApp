@@ -52,7 +52,7 @@ namespace ReservationApp.Pages.Admin.Restaurants.Tables
                 .ToListAsync();
 
             var todayReservations = weekReservations.Where(r => r.ReservationDate.Date == today).ToList();
-            TableStatuses = ReservationAvailability.BuildTableStatuses(RestaurantTables, todayReservations, now, Restaurant.Settings);
+            TableStatuses = ReservationAvailability.BuildTableStatuses(RestaurantTables, todayReservations, now);
 
             WeeklyReservationsByTable = RestaurantTables.ToDictionary(
                 t => t.TableId,

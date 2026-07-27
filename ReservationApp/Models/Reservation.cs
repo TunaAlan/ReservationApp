@@ -32,6 +32,15 @@ namespace ReservationApp.Models
         public int NumberOfPeople { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.Now;
 
+        // Snapshot of the restaurant's RestaurantSettings.ReservationDurationMinutes /
+        // BufferMinutes at the moment this reservation was booked. The booking engine
+        // uses these — not the restaurant's current live settings — when computing how
+        // long *this* reservation blocks its table, so an owner editing turn-time later
+        // can't retroactively shrink the window a guest was already promised and open
+        // the table up for a conflicting double-booking.
+        public int DurationMinutes { get; set; }
+        public int BufferMinutes { get; set; }
+
         [MaxLength(500)]
         public string? Notes { get; set; }
 

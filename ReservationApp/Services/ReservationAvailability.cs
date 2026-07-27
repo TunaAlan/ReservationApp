@@ -18,18 +18,24 @@ namespace ReservationApp.Services
         // A reservation occupies its table for Duration, then stays unavailable for an
         // extra Buffer minutes (cleanup) before it's bookable again. Two reservations
         // "overlap" if their [start, start + Duration + Buffer) windows intersect.
-        public static bool Overlaps(DateTime aStart, DateTime bStart, RestaurantSettings settings)
+        //
+        // Asymmetric on purpose: `existing`'s window comes from its own DurationMinutes/
+        // BufferMinutes snapshot (fixed at the moment it was booked), while
+        // `candidateStart`'s window comes from the restaurant's current live settings —
+        // this is what's being asked "if a new reservation started here right now, would
+        // it collide with this already-booked one?" A restaurant editing its turn-time
+        // later must not retroactively shrink an existing guest's occupied window.
+        public static bool Overlaps(Reservation existing, DateTime candidateStart, RestaurantSettings settings)
         {
-            var occupiedMinutes = settings.ReservationDurationMinutes + settings.BufferMinutes;
-            var aEnd = aStart.AddMinutes(occupiedMinutes);
-            var bEnd = bStart.AddMinutes(occupiedMinutes);
-            return aStart < bEnd && aEnd > bStart;
+            var existingEnd = existing.ReservationDate.AddMinutes(existing.DurationMinutes + existing.BufferMinutes);
+            var candidateEnd = candidateStart.AddMinutes(settings.ReservationDurationMinutes + settings.BufferMinutes);
+            return existing.ReservationDate < candidateEnd && existingEnd > candidateStart;
         }
 
         private static HashSet<int> OccupiedTableIds(IEnumerable<Reservation> reservations, DateTime slotStart, RestaurantSettings settings)
         {
             return reservations
-                .Where(r => r.TableId.HasValue && Overlaps(r.ReservationDate, slotStart, settings))
+                .Where(r => r.TableId.HasValue && Overlaps(r, slotStart, settings))
                 .Select(r => r.TableId!.Value)
                 .ToHashSet();
         }
@@ -166,15 +172,14 @@ namespace ReservationApp.Services
         // Per-table live status for a floor-management view (admin/owner only — this is
         // operational detail, not something a diner needs or should see). Built from a
         // single day's reservations, keyed by TableId.
-        public static Dictionary<int, TableStatus> BuildTableStatuses(IEnumerable<RestaurantTable> tables, IEnumerable<Reservation> todayReservations, DateTime now, RestaurantSettings settings)
+        public static Dictionary<int, TableStatus> BuildTableStatuses(IEnumerable<RestaurantTable> tables, IEnumerable<Reservation> todayReservations, DateTime now)
         {
             var reservations = todayReservations.ToList();
-            var occupiedMinutes = settings.ReservationDurationMinutes + settings.BufferMinutes;
 
             return tables.ToDictionary(t => t.TableId, t =>
             {
                 var forTable = reservations.Where(r => r.TableId == t.TableId).OrderBy(r => r.ReservationDate).ToList();
-                var isOccupiedNow = forTable.Any(r => r.ReservationDate <= now && r.ReservationDate.AddMinutes(occupiedMinutes) > now);
+                var isOccupiedNow = forTable.Any(r => r.ReservationDate <= now && r.ReservationDate.AddMinutes(r.DurationMinutes + r.BufferMinutes) > now);
                 var next = forTable.FirstOrDefault(r => r.ReservationDate >= now)?.ReservationDate;
                 return new TableStatus(isOccupiedNow, next, forTable.Count);
             });

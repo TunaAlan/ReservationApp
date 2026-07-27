@@ -243,6 +243,11 @@ namespace ReservationApp.Pages.Client.Restaurants
             Reservation.RestaurantId = id;
             Reservation.TableId = assignedTable.TableId;
             Reservation.CreatedAt = DateTime.Now;
+            // Snapshot today's turn-time settings onto the reservation itself so a later
+            // settings edit can't retroactively change how long this booking blocks its
+            // table — see ReservationAvailability.Overlaps.
+            Reservation.DurationMinutes = settings.ReservationDurationMinutes;
+            Reservation.BufferMinutes = settings.BufferMinutes;
             // The Notes field is only ever shown to the guest when the restaurant opts
             // in — strip it server-side too, in case a request was crafted to include
             // one anyway.
