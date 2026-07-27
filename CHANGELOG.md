@@ -6,6 +6,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 > **Status:** Pre-production demo / learning project — no formal release has shipped yet.
 
+## [0.6.0] - 2026-07-27
+
+**Security — Upload Validation**
+- The restaurant image gallery (`0.4.0`) validates every upload through a shared `ImageUploadHelper` — extension whitelist (`.jpg`, `.jpeg`, `.png`, `.webp`) and a 5MB size limit, the same policy `0.2.0` applied to the original single-cover-image upload, now shared by both.
+
+**Security — Audit of New Owner/Admin Surfaces**
+- Before releasing `0.4.0`/`0.5.0`, audited every new mutating page added in this batch of work against the three vulnerability classes `0.2.0` originally fixed. No gaps found:
+  - **Authorization**: every new Admin page carries `[Authorize(Roles = "admin")]`, every new Owner page carries `[Authorize(Roles = "restaurant")]` — checked across all of `Admin/Categories`, `Admin/Cities`, `Admin/Restaurants/{Images,Settings,Tables}`, `Owner/{Edit,Images,Index,Settings,Tables}`.
+  - **IDOR**: every Owner page resolves its target restaurant via `OwnerUserId == currentUser`, never a route/query parameter, and every nested lookup (a specific table, a specific image) is additionally scoped to that already-resolved restaurant's own `RestaurantId` before it's touched.
+  - **CSRF-safe deletion**: every new `Delete` page (`Categories`, `Cities`, `Restaurants/Tables` ×2) only mutates inside `OnPostAsync`, protected by Razor Pages' automatic anti-forgery token — `OnGetAsync` renders a confirmation only, matching the pattern `0.2.0` established.
+
 ## [0.5.0] - 2026-07-27
 
 **Fixed — Retroactive Double-Booking via Settings Changes**
