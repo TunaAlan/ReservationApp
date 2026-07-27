@@ -6,6 +6,32 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 > **Status:** Pre-production demo / learning project — no formal release has shipped yet.
 
+## [0.4.0] - 2026-07-27
+
+**Added — Restaurant Owner Portal**
+- Self-registration now offers an "Account type" choice (client or restaurant) — previously every signup was hardcoded to the client role, so the pages below were unreachable.
+- New `/Owner/Index` dashboard (today's peak-occupied tables, a 7-day occupancy strip, quick links) and `/Owner/Edit` profile page, both resolving the target restaurant via `OwnerUserId == currentUser` — never a route/query parameter.
+
+**Added — Category & City Reference Data**
+- Restaurants previously stored `Category` as free text with no `District` field at all. Replaced with proper `Category`/`City` entities, full Admin CRUD (`/Admin/Categories`, `/Admin/Cities`), and dropdown selection on the restaurant Create/Edit forms — deleting a category/city in use is blocked with a count of affected restaurants.
+
+**Added — Table-Based Capacity**
+- Replaced the single `Capacity` number with individually-labeled tables per restaurant (`/Admin/Restaurants/Tables`, `/Owner/Tables`): seat count, live occupied/free status, next-reservation lookahead, and a 7-day schedule per table. The booking engine now assigns each reservation to a specific best-fit table instead of just checking a capacity sum.
+
+**Added — Restaurant Image Gallery**
+- Restaurants can now have a multi-photo gallery (`/Owner/Images`, `/Admin/Restaurants/Images`) instead of a single cover image — reorder, delete, and add photos, each validated through a shared upload helper (extension whitelist + 5MB limit, same policy as the original `0.2.0` fix).
+
+**Added — Restaurant Browsing & Filtering**
+- Client restaurant list gained a category/city/price filter bar, a photo gallery per card, and per-restaurant "full today"/weekly-occupancy badges driven by the new booking engine. Also added an About Us page.
+
+**Added — Restaurant Settings & Booking Rules Engine**
+- Every restaurant's booking behavior — turn-time, cleanup buffer, time-slot granularity, business hours, advance-booking window, max guests — used to be a single hardcoded set of constants shared by the whole app. New Settings pages (`/Owner/Settings`, `/Admin/Restaurants/Settings`) let each restaurant configure all of it independently, including per-day business hours with a "copy Monday to all days" shortcut.
+- **Operating Policies**: same-day acceptance, guest notes, auto-confirm vs. pending, and cancellation (with a configurable deadline) are now per-restaurant toggles, enforced in `AddReservation` and `DeleteReservation`. A reservation left unconfirmed shows a "Pending confirmation" badge on the guest's reservation list and the owner's table schedule.
+- Every newly created restaurant now gets a default Settings row and 7 BusinessHours rows set before the first save, so the booking engine never encounters a restaurant with no configuration at all.
+
+**Fixed**
+- `MaxGuestsPerReservation` and `MinAdvanceBookingHours` existed on the settings model from the start of this work but were never actually checked at booking time — both are now enforced, with a clear error message when violated.
+
 ## [0.3.0] - 2026-07-23
 
 **Fixed — Additional Crash Bugs**
