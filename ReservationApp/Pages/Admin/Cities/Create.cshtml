@@ -1,0 +1,37 @@
+@page
+@model ReservationApp.Pages.Admin.Cities.CreateModel
+@{
+    ViewData["Title"] = "New City";
+}
+
+<div class="row">
+    <div class="col-md-6 mx-auto rounded border p-3">
+        <h2 class="text-center mb-5"><i class="bi bi-geo-alt"></i> New City</h2>
+
+        @if (Model.errorMessage.Length > 0)
+        {
+            <div class="alert alert-danger" role="alert">
+                <i class="bi bi-exclamation-triangle-fill"></i> @Model.errorMessage
+            </div>
+        }
+
+        <form method="post">
+            <div class="row mb-3">
+                <label class="col-sm-4 col-form-label">Name</label>
+                <div class="col-sm-8">
+                    <input class="form-control" asp-for="City.Name" />
+                    <span asp-validation-for="City.Name" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="offset-sm-4 col-sm-4 d-grid">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+                <div class="col-sm-4 d-grid">
+                    <a class="btn btn-outline-primary" href="/Admin/Cities/Index" role="button">Cancel</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

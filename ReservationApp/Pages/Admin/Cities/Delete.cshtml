@@ -1,0 +1,44 @@
+@page "{id:int}"
+@model ReservationApp.Pages.Admin.Cities.DeleteModel
+@{
+    ViewData["Title"] = "Delete City";
+}
+
+<h2 class="text-center mb-4"><i class="bi bi-geo-alt"></i> Delete City</h2>
+
+@if (!string.IsNullOrEmpty(Model.errorMessage))
+{
+    <div class="alert alert-danger" role="alert">
+        <i class="bi bi-exclamation-triangle-fill"></i> @Model.errorMessage
+    </div>
+}
+else if (Model.RestaurantsUsingIt > 0)
+{
+    <div class="alert alert-danger" role="alert">
+        <i class="bi bi-exclamation-triangle-fill"></i> This city is used by @Model.RestaurantsUsingIt restaurant(s) and cannot be deleted.
+    </div>
+}
+else
+{
+    <div class="alert alert-warning">
+        Are you sure you want to delete <strong>@Model.City?.Name</strong>? This action cannot be undone.
+    </div>
+}
+
+@if (Model.RestaurantsUsing.Any())
+{
+    <ul class="list-group mb-3">
+        @foreach (var restaurant in Model.RestaurantsUsing)
+        {
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span><i class="bi bi-shop"></i> @restaurant.Name</span>
+                <a class="btn btn-outline-primary btn-sm" href="/Admin/Restaurants/Edit?id=@restaurant.RestaurantId">Reassign City</a>
+            </li>
+        }
+    </ul>
+}
+
+<form method="post" class="d-flex justify-content-end gap-2 mt-3">
+    <a asp-page="./Index" class="action-btn close-btn">Cancel</a>
+    <button type="submit" class="action-btn edit-delete-btn delete" disabled="@(Model.RestaurantsUsingIt > 0)">Delete</button>
+</form>
