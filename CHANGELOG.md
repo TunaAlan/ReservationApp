@@ -6,6 +6,21 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 > **Status:** Pre-production demo / learning project — no formal release has shipped yet.
 
+## [0.7.0] - 2026-07-27
+
+**Frontend — Shared Styling for the 0.4.0 Feature Set**
+- Restyled every page added in `0.4.0` (Owner portal, Admin CRUD for Categories/Cities/Tables/Images/Settings, restaurant cards, the business-hours grid, a shared action-button family) and the auth area (Login, account management) to match the card-based, icon-led visual language `0.3.0` established. Cosmetic only — no behavior change.
+- Added the interaction scripts that support the gallery (hover-to-cycle photos, lightbox), the restaurant filter bar (auto-submit), and the reservation receipt (print/download-image).
+
+**Infrastructure**
+- Seed a restaurant-owner demo account alongside the existing admin/client ones, so the Owner Portal has a ready-to-use login out of the box.
+- Set `TZ=Europe/Istanbul` in both the app and DB containers — `DateTime.Now`/`Today` previously defaulted to UTC inside the container, drifting a day off from local "today" for part of every day when computing reservation availability.
+- Persist `wwwroot/Restaurant_Img` in a named Docker volume; without it, uploaded gallery/cover photos lived only in the container's writable layer and vanished on every rebuild.
+- Added `html2canvas` to `libman.json` (used by the reservation receipt's "Download Image" button) and gitignored the local Playwright dev-automation scripts used to verify this work end-to-end.
+
+**Documentation**
+- Added `future_works.md` and `what_we_learned.md`, notes from this session's work.
+
 ## [0.6.0] - 2026-07-27
 
 **Security — Upload Validation**
