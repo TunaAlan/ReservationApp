@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ReservationApp.Services;
 
@@ -11,9 +12,11 @@ using ReservationApp.Services;
 namespace ReservationApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260725000017_AddRestaurantSettingsAndBusinessHours")]
+    partial class AddRestaurantSettingsAndBusinessHours
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -752,18 +755,8 @@ namespace ReservationApp.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ReservationId"));
 
-                    b.Property<int>("BufferMinutes")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
-
-                    b.Property<int>("DurationMinutes")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Notes")
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
 
                     b.Property<int>("NumberOfPeople")
                         .HasColumnType("int");
@@ -772,9 +765,6 @@ namespace ReservationApp.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<int>("RestaurantId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Status")
                         .HasColumnType("int");
 
                     b.Property<int?>("TableId")
@@ -2232,22 +2222,7 @@ namespace ReservationApp.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SettingsId"));
 
-                    b.Property<bool>("AcceptSameDayReservations")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("AllowCancellation")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("AllowReservationNotes")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("AutoConfirmReservations")
-                        .HasColumnType("bit");
-
                     b.Property<int>("BufferMinutes")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CancellationDeadlineHours")
                         .HasColumnType("int");
 
                     b.Property<int>("MaxAdvanceBookingDays")
@@ -2279,12 +2254,7 @@ namespace ReservationApp.Migrations
                         new
                         {
                             SettingsId = 1,
-                            AcceptSameDayReservations = true,
-                            AllowCancellation = true,
-                            AllowReservationNotes = true,
-                            AutoConfirmReservations = true,
                             BufferMinutes = 0,
-                            CancellationDeadlineHours = 0,
                             MaxAdvanceBookingDays = 6,
                             MinAdvanceBookingHours = 0,
                             ReservationDurationMinutes = 90,
@@ -2294,12 +2264,7 @@ namespace ReservationApp.Migrations
                         new
                         {
                             SettingsId = 2,
-                            AcceptSameDayReservations = true,
-                            AllowCancellation = true,
-                            AllowReservationNotes = true,
-                            AutoConfirmReservations = true,
                             BufferMinutes = 0,
-                            CancellationDeadlineHours = 0,
                             MaxAdvanceBookingDays = 6,
                             MinAdvanceBookingHours = 0,
                             ReservationDurationMinutes = 90,
@@ -2309,12 +2274,7 @@ namespace ReservationApp.Migrations
                         new
                         {
                             SettingsId = 3,
-                            AcceptSameDayReservations = true,
-                            AllowCancellation = true,
-                            AllowReservationNotes = true,
-                            AutoConfirmReservations = true,
                             BufferMinutes = 0,
-                            CancellationDeadlineHours = 0,
                             MaxAdvanceBookingDays = 6,
                             MinAdvanceBookingHours = 0,
                             ReservationDurationMinutes = 90,
@@ -2324,12 +2284,7 @@ namespace ReservationApp.Migrations
                         new
                         {
                             SettingsId = 4,
-                            AcceptSameDayReservations = true,
-                            AllowCancellation = true,
-                            AllowReservationNotes = true,
-                            AutoConfirmReservations = true,
                             BufferMinutes = 0,
-                            CancellationDeadlineHours = 0,
                             MaxAdvanceBookingDays = 6,
                             MinAdvanceBookingHours = 0,
                             ReservationDurationMinutes = 90,
@@ -2339,12 +2294,7 @@ namespace ReservationApp.Migrations
                         new
                         {
                             SettingsId = 5,
-                            AcceptSameDayReservations = true,
-                            AllowCancellation = true,
-                            AllowReservationNotes = true,
-                            AutoConfirmReservations = true,
                             BufferMinutes = 0,
-                            CancellationDeadlineHours = 0,
                             MaxAdvanceBookingDays = 6,
                             MinAdvanceBookingHours = 0,
                             ReservationDurationMinutes = 90,
@@ -2354,12 +2304,7 @@ namespace ReservationApp.Migrations
                         new
                         {
                             SettingsId = 6,
-                            AcceptSameDayReservations = true,
-                            AllowCancellation = true,
-                            AllowReservationNotes = true,
-                            AutoConfirmReservations = true,
                             BufferMinutes = 0,
-                            CancellationDeadlineHours = 0,
                             MaxAdvanceBookingDays = 6,
                             MinAdvanceBookingHours = 0,
                             ReservationDurationMinutes = 90,
@@ -2369,12 +2314,7 @@ namespace ReservationApp.Migrations
                         new
                         {
                             SettingsId = 7,
-                            AcceptSameDayReservations = true,
-                            AllowCancellation = true,
-                            AllowReservationNotes = true,
-                            AutoConfirmReservations = true,
                             BufferMinutes = 0,
-                            CancellationDeadlineHours = 0,
                             MaxAdvanceBookingDays = 6,
                             MinAdvanceBookingHours = 0,
                             ReservationDurationMinutes = 90,
@@ -2384,12 +2324,7 @@ namespace ReservationApp.Migrations
                         new
                         {
                             SettingsId = 8,
-                            AcceptSameDayReservations = true,
-                            AllowCancellation = true,
-                            AllowReservationNotes = true,
-                            AutoConfirmReservations = true,
                             BufferMinutes = 0,
-                            CancellationDeadlineHours = 0,
                             MaxAdvanceBookingDays = 6,
                             MinAdvanceBookingHours = 0,
                             ReservationDurationMinutes = 90,
@@ -2399,12 +2334,7 @@ namespace ReservationApp.Migrations
                         new
                         {
                             SettingsId = 9,
-                            AcceptSameDayReservations = true,
-                            AllowCancellation = true,
-                            AllowReservationNotes = true,
-                            AutoConfirmReservations = true,
                             BufferMinutes = 0,
-                            CancellationDeadlineHours = 0,
                             MaxAdvanceBookingDays = 6,
                             MinAdvanceBookingHours = 0,
                             ReservationDurationMinutes = 90,
@@ -2414,12 +2344,7 @@ namespace ReservationApp.Migrations
                         new
                         {
                             SettingsId = 10,
-                            AcceptSameDayReservations = true,
-                            AllowCancellation = true,
-                            AllowReservationNotes = true,
-                            AutoConfirmReservations = true,
                             BufferMinutes = 0,
-                            CancellationDeadlineHours = 0,
                             MaxAdvanceBookingDays = 6,
                             MinAdvanceBookingHours = 0,
                             ReservationDurationMinutes = 90,
@@ -2429,12 +2354,7 @@ namespace ReservationApp.Migrations
                         new
                         {
                             SettingsId = 11,
-                            AcceptSameDayReservations = true,
-                            AllowCancellation = true,
-                            AllowReservationNotes = true,
-                            AutoConfirmReservations = true,
                             BufferMinutes = 0,
-                            CancellationDeadlineHours = 0,
                             MaxAdvanceBookingDays = 6,
                             MinAdvanceBookingHours = 0,
                             ReservationDurationMinutes = 90,
@@ -2444,12 +2364,7 @@ namespace ReservationApp.Migrations
                         new
                         {
                             SettingsId = 12,
-                            AcceptSameDayReservations = true,
-                            AllowCancellation = true,
-                            AllowReservationNotes = true,
-                            AutoConfirmReservations = true,
                             BufferMinutes = 0,
-                            CancellationDeadlineHours = 0,
                             MaxAdvanceBookingDays = 6,
                             MinAdvanceBookingHours = 0,
                             ReservationDurationMinutes = 90,
@@ -2459,12 +2374,7 @@ namespace ReservationApp.Migrations
                         new
                         {
                             SettingsId = 13,
-                            AcceptSameDayReservations = true,
-                            AllowCancellation = true,
-                            AllowReservationNotes = true,
-                            AutoConfirmReservations = true,
                             BufferMinutes = 0,
-                            CancellationDeadlineHours = 0,
                             MaxAdvanceBookingDays = 6,
                             MinAdvanceBookingHours = 0,
                             ReservationDurationMinutes = 90,
@@ -2474,12 +2384,7 @@ namespace ReservationApp.Migrations
                         new
                         {
                             SettingsId = 14,
-                            AcceptSameDayReservations = true,
-                            AllowCancellation = true,
-                            AllowReservationNotes = true,
-                            AutoConfirmReservations = true,
                             BufferMinutes = 0,
-                            CancellationDeadlineHours = 0,
                             MaxAdvanceBookingDays = 6,
                             MinAdvanceBookingHours = 0,
                             ReservationDurationMinutes = 90,
@@ -2489,12 +2394,7 @@ namespace ReservationApp.Migrations
                         new
                         {
                             SettingsId = 15,
-                            AcceptSameDayReservations = true,
-                            AllowCancellation = true,
-                            AllowReservationNotes = true,
-                            AutoConfirmReservations = true,
                             BufferMinutes = 0,
-                            CancellationDeadlineHours = 0,
                             MaxAdvanceBookingDays = 6,
                             MinAdvanceBookingHours = 0,
                             ReservationDurationMinutes = 90,
@@ -2504,12 +2404,7 @@ namespace ReservationApp.Migrations
                         new
                         {
                             SettingsId = 16,
-                            AcceptSameDayReservations = true,
-                            AllowCancellation = true,
-                            AllowReservationNotes = true,
-                            AutoConfirmReservations = true,
                             BufferMinutes = 0,
-                            CancellationDeadlineHours = 0,
                             MaxAdvanceBookingDays = 6,
                             MinAdvanceBookingHours = 0,
                             ReservationDurationMinutes = 90,

@@ -8,11 +8,17 @@ namespace ReservationApp.Models
 {
     public class RestaurantDto
     {
-    [Required, StringLength(50)]
-    public string Category { get; set; } = "";
+    [Range(1, int.MaxValue, ErrorMessage = "Please select a category.")]
+    public int CategoryId { get; set; }
 
     [Required, StringLength(100)]
     public string Name { get; set; } = "";
+
+    [Range(1, int.MaxValue, ErrorMessage = "Please select a city.")]
+    public int CityId { get; set; }
+
+    [Required, StringLength(80)]
+    public string District { get; set; } = "";
 
     [Required, StringLength(200)]
     public string Address { get; set; } = "";
@@ -23,10 +29,11 @@ namespace ReservationApp.Models
     [Range(1, 100000, ErrorMessage = "Average price must be greater than 0.")]
     public int AvgPrice { get; set; }
 
-    [Range(1, 1000, ErrorMessage = "Capacity must be greater than 0.")]
-    public int Capacity { get; set; }
-    public IFormFile? ImageFile { get; set; }
     public int RestaurantId { get; set; }
+
+    // Admin-only field: which restaurant-role user manages this listing.
+    // Never bound/shown on the owner-facing edit form.
+    public string? OwnerUserId { get; set; }
 
     }
 }

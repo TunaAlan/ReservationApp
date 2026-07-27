@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ReservationApp.Services;
 
@@ -11,9 +12,11 @@ using ReservationApp.Services;
 namespace ReservationApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260724013810_ReplaceImageFileNameWithGallery")]
+    partial class ReplaceImageFileNameWithGallery
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -319,431 +322,6 @@ namespace ReservationApp.Migrations
                         });
                 });
 
-            modelBuilder.Entity("ReservationApp.Models.City", b =>
-                {
-                    b.Property<int>("CityId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CityId"));
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.HasKey("CityId");
-
-                    b.ToTable("Cities");
-
-                    b.HasData(
-                        new
-                        {
-                            CityId = 1,
-                            Name = "Adana"
-                        },
-                        new
-                        {
-                            CityId = 2,
-                            Name = "Adıyaman"
-                        },
-                        new
-                        {
-                            CityId = 3,
-                            Name = "Afyonkarahisar"
-                        },
-                        new
-                        {
-                            CityId = 4,
-                            Name = "Ağrı"
-                        },
-                        new
-                        {
-                            CityId = 5,
-                            Name = "Amasya"
-                        },
-                        new
-                        {
-                            CityId = 6,
-                            Name = "Ankara"
-                        },
-                        new
-                        {
-                            CityId = 7,
-                            Name = "Antalya"
-                        },
-                        new
-                        {
-                            CityId = 8,
-                            Name = "Artvin"
-                        },
-                        new
-                        {
-                            CityId = 9,
-                            Name = "Aydın"
-                        },
-                        new
-                        {
-                            CityId = 10,
-                            Name = "Balıkesir"
-                        },
-                        new
-                        {
-                            CityId = 11,
-                            Name = "Bilecik"
-                        },
-                        new
-                        {
-                            CityId = 12,
-                            Name = "Bingöl"
-                        },
-                        new
-                        {
-                            CityId = 13,
-                            Name = "Bitlis"
-                        },
-                        new
-                        {
-                            CityId = 14,
-                            Name = "Bolu"
-                        },
-                        new
-                        {
-                            CityId = 15,
-                            Name = "Burdur"
-                        },
-                        new
-                        {
-                            CityId = 16,
-                            Name = "Bursa"
-                        },
-                        new
-                        {
-                            CityId = 17,
-                            Name = "Çanakkale"
-                        },
-                        new
-                        {
-                            CityId = 18,
-                            Name = "Çankırı"
-                        },
-                        new
-                        {
-                            CityId = 19,
-                            Name = "Çorum"
-                        },
-                        new
-                        {
-                            CityId = 20,
-                            Name = "Denizli"
-                        },
-                        new
-                        {
-                            CityId = 21,
-                            Name = "Diyarbakır"
-                        },
-                        new
-                        {
-                            CityId = 22,
-                            Name = "Edirne"
-                        },
-                        new
-                        {
-                            CityId = 23,
-                            Name = "Elazığ"
-                        },
-                        new
-                        {
-                            CityId = 24,
-                            Name = "Erzincan"
-                        },
-                        new
-                        {
-                            CityId = 25,
-                            Name = "Erzurum"
-                        },
-                        new
-                        {
-                            CityId = 26,
-                            Name = "Eskişehir"
-                        },
-                        new
-                        {
-                            CityId = 27,
-                            Name = "Gaziantep"
-                        },
-                        new
-                        {
-                            CityId = 28,
-                            Name = "Giresun"
-                        },
-                        new
-                        {
-                            CityId = 29,
-                            Name = "Gümüşhane"
-                        },
-                        new
-                        {
-                            CityId = 30,
-                            Name = "Hakkari"
-                        },
-                        new
-                        {
-                            CityId = 31,
-                            Name = "Hatay"
-                        },
-                        new
-                        {
-                            CityId = 32,
-                            Name = "Isparta"
-                        },
-                        new
-                        {
-                            CityId = 33,
-                            Name = "Mersin"
-                        },
-                        new
-                        {
-                            CityId = 34,
-                            Name = "İstanbul"
-                        },
-                        new
-                        {
-                            CityId = 35,
-                            Name = "İzmir"
-                        },
-                        new
-                        {
-                            CityId = 36,
-                            Name = "Kars"
-                        },
-                        new
-                        {
-                            CityId = 37,
-                            Name = "Kastamonu"
-                        },
-                        new
-                        {
-                            CityId = 38,
-                            Name = "Kayseri"
-                        },
-                        new
-                        {
-                            CityId = 39,
-                            Name = "Kırklareli"
-                        },
-                        new
-                        {
-                            CityId = 40,
-                            Name = "Kırşehir"
-                        },
-                        new
-                        {
-                            CityId = 41,
-                            Name = "Kocaeli"
-                        },
-                        new
-                        {
-                            CityId = 42,
-                            Name = "Konya"
-                        },
-                        new
-                        {
-                            CityId = 43,
-                            Name = "Kütahya"
-                        },
-                        new
-                        {
-                            CityId = 44,
-                            Name = "Malatya"
-                        },
-                        new
-                        {
-                            CityId = 45,
-                            Name = "Manisa"
-                        },
-                        new
-                        {
-                            CityId = 46,
-                            Name = "Kahramanmaraş"
-                        },
-                        new
-                        {
-                            CityId = 47,
-                            Name = "Mardin"
-                        },
-                        new
-                        {
-                            CityId = 48,
-                            Name = "Muğla"
-                        },
-                        new
-                        {
-                            CityId = 49,
-                            Name = "Muş"
-                        },
-                        new
-                        {
-                            CityId = 50,
-                            Name = "Nevşehir"
-                        },
-                        new
-                        {
-                            CityId = 51,
-                            Name = "Niğde"
-                        },
-                        new
-                        {
-                            CityId = 52,
-                            Name = "Ordu"
-                        },
-                        new
-                        {
-                            CityId = 53,
-                            Name = "Rize"
-                        },
-                        new
-                        {
-                            CityId = 54,
-                            Name = "Sakarya"
-                        },
-                        new
-                        {
-                            CityId = 55,
-                            Name = "Samsun"
-                        },
-                        new
-                        {
-                            CityId = 56,
-                            Name = "Siirt"
-                        },
-                        new
-                        {
-                            CityId = 57,
-                            Name = "Sinop"
-                        },
-                        new
-                        {
-                            CityId = 58,
-                            Name = "Sivas"
-                        },
-                        new
-                        {
-                            CityId = 59,
-                            Name = "Tekirdağ"
-                        },
-                        new
-                        {
-                            CityId = 60,
-                            Name = "Tokat"
-                        },
-                        new
-                        {
-                            CityId = 61,
-                            Name = "Trabzon"
-                        },
-                        new
-                        {
-                            CityId = 62,
-                            Name = "Tunceli"
-                        },
-                        new
-                        {
-                            CityId = 63,
-                            Name = "Şanlıurfa"
-                        },
-                        new
-                        {
-                            CityId = 64,
-                            Name = "Uşak"
-                        },
-                        new
-                        {
-                            CityId = 65,
-                            Name = "Van"
-                        },
-                        new
-                        {
-                            CityId = 66,
-                            Name = "Yozgat"
-                        },
-                        new
-                        {
-                            CityId = 67,
-                            Name = "Zonguldak"
-                        },
-                        new
-                        {
-                            CityId = 68,
-                            Name = "Aksaray"
-                        },
-                        new
-                        {
-                            CityId = 69,
-                            Name = "Bayburt"
-                        },
-                        new
-                        {
-                            CityId = 70,
-                            Name = "Karaman"
-                        },
-                        new
-                        {
-                            CityId = 71,
-                            Name = "Kırıkkale"
-                        },
-                        new
-                        {
-                            CityId = 72,
-                            Name = "Batman"
-                        },
-                        new
-                        {
-                            CityId = 73,
-                            Name = "Şırnak"
-                        },
-                        new
-                        {
-                            CityId = 74,
-                            Name = "Bartın"
-                        },
-                        new
-                        {
-                            CityId = 75,
-                            Name = "Ardahan"
-                        },
-                        new
-                        {
-                            CityId = 76,
-                            Name = "Iğdır"
-                        },
-                        new
-                        {
-                            CityId = 77,
-                            Name = "Yalova"
-                        },
-                        new
-                        {
-                            CityId = 78,
-                            Name = "Karabük"
-                        },
-                        new
-                        {
-                            CityId = 79,
-                            Name = "Kilis"
-                        },
-                        new
-                        {
-                            CityId = 80,
-                            Name = "Osmaniye"
-                        },
-                        new
-                        {
-                            CityId = 81,
-                            Name = "Düzce"
-                        });
-                });
-
             modelBuilder.Entity("ReservationApp.Models.Reservation", b =>
                 {
                     b.Property<int>("ReservationId")
@@ -752,18 +330,8 @@ namespace ReservationApp.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ReservationId"));
 
-                    b.Property<int>("BufferMinutes")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
-
-                    b.Property<int>("DurationMinutes")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Notes")
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
 
                     b.Property<int>("NumberOfPeople")
                         .HasColumnType("int");
@@ -772,9 +340,6 @@ namespace ReservationApp.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<int>("RestaurantId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Status")
                         .HasColumnType("int");
 
                     b.Property<int?>("TableId")
@@ -813,16 +378,8 @@ namespace ReservationApp.Migrations
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
-                    b.Property<int>("CityId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("District")
-                        .IsRequired()
-                        .HasMaxLength(80)
-                        .HasColumnType("nvarchar(80)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -841,8 +398,6 @@ namespace ReservationApp.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.HasIndex("CityId");
-
                     b.HasIndex("OwnerUserId")
                         .IsUnique()
                         .HasFilter("[OwnerUserId] IS NOT NULL");
@@ -853,1234 +408,162 @@ namespace ReservationApp.Migrations
                         new
                         {
                             RestaurantId = 1,
-                            Address = "Neyzen Tevfik Cd. No:12",
+                            Address = "12 Shoreline Ave, Seaside",
                             AvgPrice = 75,
                             CategoryId = 1,
-                            CityId = 48,
                             CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            District = "Bodrum",
                             Name = "Ocean's Bounty",
                             PhoneNumber = "555-9876"
                         },
                         new
                         {
                             RestaurantId = 2,
-                            Address = "Girne Blv. No:10",
+                            Address = "10 Ocean Drive, Shoreline City",
                             AvgPrice = 85,
                             CategoryId = 1,
-                            CityId = 35,
                             CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            District = "Karşıyaka",
                             Name = "The Fisherman's Wharf",
                             PhoneNumber = "555-1111"
                         },
                         new
                         {
                             RestaurantId = 3,
-                            Address = "Barbaros Blv. No:22",
+                            Address = "22 High Street, Uptown",
                             AvgPrice = 200,
                             CategoryId = 2,
-                            CityId = 34,
                             CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            District = "Beşiktaş",
                             Name = "The Golden Fork",
                             PhoneNumber = "555-2345"
                         },
                         new
                         {
                             RestaurantId = 4,
-                            Address = "Tunalı Hilmi Cd. No:33",
+                            Address = "33 Luxury Ave, High Hill",
                             AvgPrice = 250,
                             CategoryId = 2,
-                            CityId = 6,
                             CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            District = "Çankaya",
                             Name = "Elegance Palace",
                             PhoneNumber = "555-2222"
                         },
                         new
                         {
                             RestaurantId = 5,
-                            Address = "FSM Blv. No:85",
+                            Address = "85 Fast Lane, Speedy City",
                             AvgPrice = 15,
                             CategoryId = 3,
-                            CityId = 16,
                             CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            District = "Nilüfer",
                             Name = "QuickBite",
                             PhoneNumber = "555-7654"
                         },
                         new
                         {
                             RestaurantId = 6,
-                            Address = "Cumhuriyet Cd. No:99",
+                            Address = "99 Quick Rd, Rushville",
                             AvgPrice = 18,
                             CategoryId = 3,
-                            CityId = 41,
                             CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            District = "İzmit",
                             Name = "Speedy Bites",
                             PhoneNumber = "555-3333"
                         },
                         new
                         {
                             RestaurantId = 7,
-                            Address = "Akdeniz Blv. No:4",
+                            Address = "4 Blossom Rd, Little Tokyo",
                             AvgPrice = 40,
                             CategoryId = 4,
-                            CityId = 7,
                             CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            District = "Konyaaltı",
                             Name = "Sakura Sushi",
                             PhoneNumber = "555-3210"
                         },
                         new
                         {
                             RestaurantId = 8,
-                            Address = "İki Eylül Cd. No:25",
+                            Address = "25 Sakura St, New Kyoto",
                             AvgPrice = 50,
                             CategoryId = 4,
-                            CityId = 26,
                             CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            District = "Tepebaşı",
                             Name = "Tokyo Delight",
                             PhoneNumber = "555-4444"
                         },
                         new
                         {
                             RestaurantId = 9,
-                            Address = "İncilipınar Cd. No:15",
+                            Address = "15 Olive St, Old Town",
                             AvgPrice = 60,
                             CategoryId = 5,
-                            CityId = 27,
                             CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            District = "Şahinbey",
                             Name = "Mamma Mia",
                             PhoneNumber = "555-9087"
                         },
                         new
                         {
                             RestaurantId = 10,
-                            Address = "Mevlana Cd. No:18",
+                            Address = "18 Roman Way, Little Italy",
                             AvgPrice = 65,
                             CategoryId = 5,
-                            CityId = 42,
                             CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            District = "Selçuklu",
                             Name = "Pasta House",
                             PhoneNumber = "555-5555"
                         },
                         new
                         {
                             RestaurantId = 11,
-                            Address = "Turhan Cemal Beriker Blv. No:9",
+                            Address = "9 Coffee Blvd, Downtown",
                             AvgPrice = 12,
                             CategoryId = 6,
-                            CityId = 1,
                             CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            District = "Seyhan",
                             Name = "Brewed Awakening",
                             PhoneNumber = "555-4532"
                         },
                         new
                         {
                             RestaurantId = 12,
-                            Address = "Kahramanmaraş Cd. No:44",
+                            Address = "44 Bean St, Coffeeville",
                             AvgPrice = 15,
                             CategoryId = 6,
-                            CityId = 61,
                             CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            District = "Ortahisar",
                             Name = "Morning Brew",
                             PhoneNumber = "555-6666"
                         },
                         new
                         {
                             RestaurantId = 13,
-                            Address = "Sivas Cd. No:34",
+                            Address = "34 Beef Rd, Meat District",
                             AvgPrice = 90,
                             CategoryId = 7,
-                            CityId = 38,
                             CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            District = "Melikgazi",
                             Name = "Grill Master",
                             PhoneNumber = "555-8723"
                         },
                         new
                         {
                             RestaurantId = 14,
-                            Address = "Atatürk Cd. No:52",
+                            Address = "52 Steakhouse Rd, Beef City",
                             AvgPrice = 100,
                             CategoryId = 7,
-                            CityId = 33,
                             CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            District = "Yenişehir",
                             Name = "Prime Cut Grill",
                             PhoneNumber = "555-7777"
                         },
                         new
                         {
                             RestaurantId = 15,
-                            Address = "Çamlıca Cd. No:11",
+                            Address = "11 Cozy Corner, Riverside",
                             AvgPrice = 45,
                             CategoryId = 8,
-                            CityId = 34,
                             CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            District = "Üsküdar",
                             Name = "Le Petit Bistro",
                             PhoneNumber = "555-6789"
                         },
                         new
                         {
                             RestaurantId = 16,
-                            Address = "İstasyon Cd. No:3",
+                            Address = "3 Cozy Ln, Riverside",
                             AvgPrice = 40,
                             CategoryId = 8,
-                            CityId = 34,
                             CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            District = "Bakırköy",
                             Name = "Bistro Bella",
                             PhoneNumber = "555-8888"
-                        });
-                });
-
-            modelBuilder.Entity("ReservationApp.Models.RestaurantBusinessHour", b =>
-                {
-                    b.Property<int>("BusinessHourId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BusinessHourId"));
-
-                    b.Property<TimeSpan?>("CloseTime")
-                        .HasColumnType("time");
-
-                    b.Property<int>("DayOfWeek")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("IsClosed")
-                        .HasColumnType("bit");
-
-                    b.Property<TimeSpan?>("OpenTime")
-                        .HasColumnType("time");
-
-                    b.Property<int>("RestaurantId")
-                        .HasColumnType("int");
-
-                    b.HasKey("BusinessHourId");
-
-                    b.HasIndex("RestaurantId");
-
-                    b.ToTable("RestaurantBusinessHours");
-
-                    b.HasData(
-                        new
-                        {
-                            BusinessHourId = 1,
-                            CloseTime = new TimeSpan(0, 22, 0, 0, 0),
-                            DayOfWeek = 0,
-                            IsClosed = false,
-                            OpenTime = new TimeSpan(0, 11, 0, 0, 0),
-                            RestaurantId = 1
-                        },
-                        new
-                        {
-                            BusinessHourId = 2,
-                            CloseTime = new TimeSpan(0, 22, 0, 0, 0),
-                            DayOfWeek = 1,
-                            IsClosed = false,
-                            OpenTime = new TimeSpan(0, 11, 0, 0, 0),
-                            RestaurantId = 1
-                        },
-                        new
-                        {
-                            BusinessHourId = 3,
-                            CloseTime = new TimeSpan(0, 22, 0, 0, 0),
-                            DayOfWeek = 2,
-                            IsClosed = false,
-                            OpenTime = new TimeSpan(0, 11, 0, 0, 0),
-                            RestaurantId = 1
-                        },
-                        new
-                        {
-                            BusinessHourId = 4,
-                            CloseTime = new TimeSpan(0, 22, 0, 0, 0),
-                            DayOfWeek = 3,
-                            IsClosed = false,
-                            OpenTime = new TimeSpan(0, 11, 0, 0, 0),
-                            RestaurantId = 1
-                        },
-                        new
-                        {
-                            BusinessHourId = 5,
-                            CloseTime = new TimeSpan(0, 22, 0, 0, 0),
-                            DayOfWeek = 4,
-                            IsClosed = false,
-                            OpenTime = new TimeSpan(0, 11, 0, 0, 0),
-                            RestaurantId = 1
-                        },
-                        new
-                        {
-                            BusinessHourId = 6,
-                            CloseTime = new TimeSpan(0, 22, 0, 0, 0),
-                            DayOfWeek = 5,
-                            IsClosed = false,
-                            OpenTime = new TimeSpan(0, 11, 0, 0, 0),
-                            RestaurantId = 1
-                        },
-                        new
-                        {
-                            BusinessHourId = 7,
-                            CloseTime = new TimeSpan(0, 22, 0, 0, 0),
-                            DayOfWeek = 6,
-                            IsClosed = false,
-                            OpenTime = new TimeSpan(0, 11, 0, 0, 0),
-                            RestaurantId = 1
-                        },
-                        new
-                        {
-                            BusinessHourId = 8,
-                            CloseTime = new TimeSpan(0, 22, 0, 0, 0),
-                            DayOfWeek = 0,
-                            IsClosed = false,
-                            OpenTime = new TimeSpan(0, 11, 0, 0, 0),
-                            RestaurantId = 2
-                        },
-                        new
-                        {
-                            BusinessHourId = 9,
-                            CloseTime = new TimeSpan(0, 22, 0, 0, 0),
-                            DayOfWeek = 1,
-                            IsClosed = false,
-                            OpenTime = new TimeSpan(0, 11, 0, 0, 0),
-                            RestaurantId = 2
-                        },
-                        new
-                        {
-                            BusinessHourId = 10,
-                            CloseTime = new TimeSpan(0, 22, 0, 0, 0),
-                            DayOfWeek = 2,
-                            IsClosed = false,
-                            OpenTime = new TimeSpan(0, 11, 0, 0, 0),
-                            RestaurantId = 2
-                        },
-                        new
-                        {
-                            BusinessHourId = 11,
-                            CloseTime = new TimeSpan(0, 22, 0, 0, 0),
-                            DayOfWeek = 3,
-                            IsClosed = false,
-                            OpenTime = new TimeSpan(0, 11, 0, 0, 0),
-                            RestaurantId = 2
-                        },
-                        new
-                        {
-                            BusinessHourId = 12,
-                            CloseTime = new TimeSpan(0, 22, 0, 0, 0),
-                            DayOfWeek = 4,
-                            IsClosed = false,
-                            OpenTime = new TimeSpan(0, 11, 0, 0, 0),
-                            RestaurantId = 2
-                        },
-                        new
-                        {
-                            BusinessHourId = 13,
-                            CloseTime = new TimeSpan(0, 22, 0, 0, 0),
-                            DayOfWeek = 5,
-                            IsClosed = false,
-                            OpenTime = new TimeSpan(0, 11, 0, 0, 0),
-                            RestaurantId = 2
-                        },
-                        new
-                        {
-                            BusinessHourId = 14,
-                            CloseTime = new TimeSpan(0, 22, 0, 0, 0),
-                            DayOfWeek = 6,
-                            IsClosed = false,
-                            OpenTime = new TimeSpan(0, 11, 0, 0, 0),
-                            RestaurantId = 2
-                        },
-                        new
-                        {
-                            BusinessHourId = 15,
-                            CloseTime = new TimeSpan(0, 22, 0, 0, 0),
-                            DayOfWeek = 0,
-                            IsClosed = false,
-                            OpenTime = new TimeSpan(0, 11, 0, 0, 0),
-                            RestaurantId = 3
-                        },
-                        new
-                        {
-                            BusinessHourId = 16,
-                            CloseTime = new TimeSpan(0, 22, 0, 0, 0),
-                            DayOfWeek = 1,
-                            IsClosed = false,
-                            OpenTime = new TimeSpan(0, 11, 0, 0, 0),
-                            RestaurantId = 3
-                        },
-                        new
-                        {
-                            BusinessHourId = 17,
-                            CloseTime = new TimeSpan(0, 22, 0, 0, 0),
-                            DayOfWeek = 2,
-                            IsClosed = false,
-                            OpenTime = new TimeSpan(0, 11, 0, 0, 0),
-                            RestaurantId = 3
-                        },
-                        new
-                        {
-                            BusinessHourId = 18,
-                            CloseTime = new TimeSpan(0, 22, 0, 0, 0),
-                            DayOfWeek = 3,
-                            IsClosed = false,
-                            OpenTime = new TimeSpan(0, 11, 0, 0, 0),
-                            RestaurantId = 3
-                        },
-                        new
-                        {
-                            BusinessHourId = 19,
-                            CloseTime = new TimeSpan(0, 22, 0, 0, 0),
-                            DayOfWeek = 4,
-                            IsClosed = false,
-                            OpenTime = new TimeSpan(0, 11, 0, 0, 0),
-                            RestaurantId = 3
-                        },
-                        new
-                        {
-                            BusinessHourId = 20,
-                            CloseTime = new TimeSpan(0, 22, 0, 0, 0),
-                            DayOfWeek = 5,
-                            IsClosed = false,
-                            OpenTime = new TimeSpan(0, 11, 0, 0, 0),
-                            RestaurantId = 3
-                        },
-                        new
-                        {
-                            BusinessHourId = 21,
-                            CloseTime = new TimeSpan(0, 22, 0, 0, 0),
-                            DayOfWeek = 6,
-                            IsClosed = false,
-                            OpenTime = new TimeSpan(0, 11, 0, 0, 0),
-                            RestaurantId = 3
-                        },
-                        new
-                        {
-                            BusinessHourId = 22,
-                            CloseTime = new TimeSpan(0, 22, 0, 0, 0),
-                            DayOfWeek = 0,
-                            IsClosed = false,
-                            OpenTime = new TimeSpan(0, 11, 0, 0, 0),
-                            RestaurantId = 4
-                        },
-                        new
-                        {
-                            BusinessHourId = 23,
-                            CloseTime = new TimeSpan(0, 22, 0, 0, 0),
-                            DayOfWeek = 1,
-                            IsClosed = false,
-                            OpenTime = new TimeSpan(0, 11, 0, 0, 0),
-                            RestaurantId = 4
-                        },
-                        new
-                        {
-                            BusinessHourId = 24,
-                            CloseTime = new TimeSpan(0, 22, 0, 0, 0),
-                            DayOfWeek = 2,
-                            IsClosed = false,
-                            OpenTime = new TimeSpan(0, 11, 0, 0, 0),
-                            RestaurantId = 4
-                        },
-                        new
-                        {
-                            BusinessHourId = 25,
-                            CloseTime = new TimeSpan(0, 22, 0, 0, 0),
-                            DayOfWeek = 3,
-                            IsClosed = false,
-                            OpenTime = new TimeSpan(0, 11, 0, 0, 0),
-                            RestaurantId = 4
-                        },
-                        new
-                        {
-                            BusinessHourId = 26,
-                            CloseTime = new TimeSpan(0, 22, 0, 0, 0),
-                            DayOfWeek = 4,
-                            IsClosed = false,
-                            OpenTime = new TimeSpan(0, 11, 0, 0, 0),
-                            RestaurantId = 4
-                        },
-                        new
-                        {
-                            BusinessHourId = 27,
-                            CloseTime = new TimeSpan(0, 22, 0, 0, 0),
-                            DayOfWeek = 5,
-                            IsClosed = false,
-                            OpenTime = new TimeSpan(0, 11, 0, 0, 0),
-                            RestaurantId = 4
-                        },
-                        new
-                        {
-                            BusinessHourId = 28,
-                            CloseTime = new TimeSpan(0, 22, 0, 0, 0),
-                            DayOfWeek = 6,
-                            IsClosed = false,
-                            OpenTime = new TimeSpan(0, 11, 0, 0, 0),
-                            RestaurantId = 4
-                        },
-                        new
-                        {
-                            BusinessHourId = 29,
-                            CloseTime = new TimeSpan(0, 22, 0, 0, 0),
-                            DayOfWeek = 0,
-                            IsClosed = false,
-                            OpenTime = new TimeSpan(0, 11, 0, 0, 0),
-                            RestaurantId = 5
-                        },
-                        new
-                        {
-                            BusinessHourId = 30,
-                            CloseTime = new TimeSpan(0, 22, 0, 0, 0),
-                            DayOfWeek = 1,
-                            IsClosed = false,
-                            OpenTime = new TimeSpan(0, 11, 0, 0, 0),
-                            RestaurantId = 5
-                        },
-                        new
-                        {
-                            BusinessHourId = 31,
-                            CloseTime = new TimeSpan(0, 22, 0, 0, 0),
-                            DayOfWeek = 2,
-                            IsClosed = false,
-                            OpenTime = new TimeSpan(0, 11, 0, 0, 0),
-                            RestaurantId = 5
-                        },
-                        new
-                        {
-                            BusinessHourId = 32,
-                            CloseTime = new TimeSpan(0, 22, 0, 0, 0),
-                            DayOfWeek = 3,
-                            IsClosed = false,
-                            OpenTime = new TimeSpan(0, 11, 0, 0, 0),
-                            RestaurantId = 5
-                        },
-                        new
-                        {
-                            BusinessHourId = 33,
-                            CloseTime = new TimeSpan(0, 22, 0, 0, 0),
-                            DayOfWeek = 4,
-                            IsClosed = false,
-                            OpenTime = new TimeSpan(0, 11, 0, 0, 0),
-                            RestaurantId = 5
-                        },
-                        new
-                        {
-                            BusinessHourId = 34,
-                            CloseTime = new TimeSpan(0, 22, 0, 0, 0),
-                            DayOfWeek = 5,
-                            IsClosed = false,
-                            OpenTime = new TimeSpan(0, 11, 0, 0, 0),
-                            RestaurantId = 5
-                        },
-                        new
-                        {
-                            BusinessHourId = 35,
-                            CloseTime = new TimeSpan(0, 22, 0, 0, 0),
-                            DayOfWeek = 6,
-                            IsClosed = false,
-                            OpenTime = new TimeSpan(0, 11, 0, 0, 0),
-                            RestaurantId = 5
-                        },
-                        new
-                        {
-                            BusinessHourId = 36,
-                            CloseTime = new TimeSpan(0, 22, 0, 0, 0),
-                            DayOfWeek = 0,
-                            IsClosed = false,
-                            OpenTime = new TimeSpan(0, 11, 0, 0, 0),
-                            RestaurantId = 6
-                        },
-                        new
-                        {
-                            BusinessHourId = 37,
-                            CloseTime = new TimeSpan(0, 22, 0, 0, 0),
-                            DayOfWeek = 1,
-                            IsClosed = false,
-                            OpenTime = new TimeSpan(0, 11, 0, 0, 0),
-                            RestaurantId = 6
-                        },
-                        new
-                        {
-                            BusinessHourId = 38,
-                            CloseTime = new TimeSpan(0, 22, 0, 0, 0),
-                            DayOfWeek = 2,
-                            IsClosed = false,
-                            OpenTime = new TimeSpan(0, 11, 0, 0, 0),
-                            RestaurantId = 6
-                        },
-                        new
-                        {
-                            BusinessHourId = 39,
-                            CloseTime = new TimeSpan(0, 22, 0, 0, 0),
-                            DayOfWeek = 3,
-                            IsClosed = false,
-                            OpenTime = new TimeSpan(0, 11, 0, 0, 0),
-                            RestaurantId = 6
-                        },
-                        new
-                        {
-                            BusinessHourId = 40,
-                            CloseTime = new TimeSpan(0, 22, 0, 0, 0),
-                            DayOfWeek = 4,
-                            IsClosed = false,
-                            OpenTime = new TimeSpan(0, 11, 0, 0, 0),
-                            RestaurantId = 6
-                        },
-                        new
-                        {
-                            BusinessHourId = 41,
-                            CloseTime = new TimeSpan(0, 22, 0, 0, 0),
-                            DayOfWeek = 5,
-                            IsClosed = false,
-                            OpenTime = new TimeSpan(0, 11, 0, 0, 0),
-                            RestaurantId = 6
-                        },
-                        new
-                        {
-                            BusinessHourId = 42,
-                            CloseTime = new TimeSpan(0, 22, 0, 0, 0),
-                            DayOfWeek = 6,
-                            IsClosed = false,
-                            OpenTime = new TimeSpan(0, 11, 0, 0, 0),
-                            RestaurantId = 6
-                        },
-                        new
-                        {
-                            BusinessHourId = 43,
-                            CloseTime = new TimeSpan(0, 22, 0, 0, 0),
-                            DayOfWeek = 0,
-                            IsClosed = false,
-                            OpenTime = new TimeSpan(0, 11, 0, 0, 0),
-                            RestaurantId = 7
-                        },
-                        new
-                        {
-                            BusinessHourId = 44,
-                            CloseTime = new TimeSpan(0, 22, 0, 0, 0),
-                            DayOfWeek = 1,
-                            IsClosed = false,
-                            OpenTime = new TimeSpan(0, 11, 0, 0, 0),
-                            RestaurantId = 7
-                        },
-                        new
-                        {
-                            BusinessHourId = 45,
-                            CloseTime = new TimeSpan(0, 22, 0, 0, 0),
-                            DayOfWeek = 2,
-                            IsClosed = false,
-                            OpenTime = new TimeSpan(0, 11, 0, 0, 0),
-                            RestaurantId = 7
-                        },
-                        new
-                        {
-                            BusinessHourId = 46,
-                            CloseTime = new TimeSpan(0, 22, 0, 0, 0),
-                            DayOfWeek = 3,
-                            IsClosed = false,
-                            OpenTime = new TimeSpan(0, 11, 0, 0, 0),
-                            RestaurantId = 7
-                        },
-                        new
-                        {
-                            BusinessHourId = 47,
-                            CloseTime = new TimeSpan(0, 22, 0, 0, 0),
-                            DayOfWeek = 4,
-                            IsClosed = false,
-                            OpenTime = new TimeSpan(0, 11, 0, 0, 0),
-                            RestaurantId = 7
-                        },
-                        new
-                        {
-                            BusinessHourId = 48,
-                            CloseTime = new TimeSpan(0, 22, 0, 0, 0),
-                            DayOfWeek = 5,
-                            IsClosed = false,
-                            OpenTime = new TimeSpan(0, 11, 0, 0, 0),
-                            RestaurantId = 7
-                        },
-                        new
-                        {
-                            BusinessHourId = 49,
-                            CloseTime = new TimeSpan(0, 22, 0, 0, 0),
-                            DayOfWeek = 6,
-                            IsClosed = false,
-                            OpenTime = new TimeSpan(0, 11, 0, 0, 0),
-                            RestaurantId = 7
-                        },
-                        new
-                        {
-                            BusinessHourId = 50,
-                            CloseTime = new TimeSpan(0, 22, 0, 0, 0),
-                            DayOfWeek = 0,
-                            IsClosed = false,
-                            OpenTime = new TimeSpan(0, 11, 0, 0, 0),
-                            RestaurantId = 8
-                        },
-                        new
-                        {
-                            BusinessHourId = 51,
-                            CloseTime = new TimeSpan(0, 22, 0, 0, 0),
-                            DayOfWeek = 1,
-                            IsClosed = false,
-                            OpenTime = new TimeSpan(0, 11, 0, 0, 0),
-                            RestaurantId = 8
-                        },
-                        new
-                        {
-                            BusinessHourId = 52,
-                            CloseTime = new TimeSpan(0, 22, 0, 0, 0),
-                            DayOfWeek = 2,
-                            IsClosed = false,
-                            OpenTime = new TimeSpan(0, 11, 0, 0, 0),
-                            RestaurantId = 8
-                        },
-                        new
-                        {
-                            BusinessHourId = 53,
-                            CloseTime = new TimeSpan(0, 22, 0, 0, 0),
-                            DayOfWeek = 3,
-                            IsClosed = false,
-                            OpenTime = new TimeSpan(0, 11, 0, 0, 0),
-                            RestaurantId = 8
-                        },
-                        new
-                        {
-                            BusinessHourId = 54,
-                            CloseTime = new TimeSpan(0, 22, 0, 0, 0),
-                            DayOfWeek = 4,
-                            IsClosed = false,
-                            OpenTime = new TimeSpan(0, 11, 0, 0, 0),
-                            RestaurantId = 8
-                        },
-                        new
-                        {
-                            BusinessHourId = 55,
-                            CloseTime = new TimeSpan(0, 22, 0, 0, 0),
-                            DayOfWeek = 5,
-                            IsClosed = false,
-                            OpenTime = new TimeSpan(0, 11, 0, 0, 0),
-                            RestaurantId = 8
-                        },
-                        new
-                        {
-                            BusinessHourId = 56,
-                            CloseTime = new TimeSpan(0, 22, 0, 0, 0),
-                            DayOfWeek = 6,
-                            IsClosed = false,
-                            OpenTime = new TimeSpan(0, 11, 0, 0, 0),
-                            RestaurantId = 8
-                        },
-                        new
-                        {
-                            BusinessHourId = 57,
-                            CloseTime = new TimeSpan(0, 22, 0, 0, 0),
-                            DayOfWeek = 0,
-                            IsClosed = false,
-                            OpenTime = new TimeSpan(0, 11, 0, 0, 0),
-                            RestaurantId = 9
-                        },
-                        new
-                        {
-                            BusinessHourId = 58,
-                            CloseTime = new TimeSpan(0, 22, 0, 0, 0),
-                            DayOfWeek = 1,
-                            IsClosed = false,
-                            OpenTime = new TimeSpan(0, 11, 0, 0, 0),
-                            RestaurantId = 9
-                        },
-                        new
-                        {
-                            BusinessHourId = 59,
-                            CloseTime = new TimeSpan(0, 22, 0, 0, 0),
-                            DayOfWeek = 2,
-                            IsClosed = false,
-                            OpenTime = new TimeSpan(0, 11, 0, 0, 0),
-                            RestaurantId = 9
-                        },
-                        new
-                        {
-                            BusinessHourId = 60,
-                            CloseTime = new TimeSpan(0, 22, 0, 0, 0),
-                            DayOfWeek = 3,
-                            IsClosed = false,
-                            OpenTime = new TimeSpan(0, 11, 0, 0, 0),
-                            RestaurantId = 9
-                        },
-                        new
-                        {
-                            BusinessHourId = 61,
-                            CloseTime = new TimeSpan(0, 22, 0, 0, 0),
-                            DayOfWeek = 4,
-                            IsClosed = false,
-                            OpenTime = new TimeSpan(0, 11, 0, 0, 0),
-                            RestaurantId = 9
-                        },
-                        new
-                        {
-                            BusinessHourId = 62,
-                            CloseTime = new TimeSpan(0, 22, 0, 0, 0),
-                            DayOfWeek = 5,
-                            IsClosed = false,
-                            OpenTime = new TimeSpan(0, 11, 0, 0, 0),
-                            RestaurantId = 9
-                        },
-                        new
-                        {
-                            BusinessHourId = 63,
-                            CloseTime = new TimeSpan(0, 22, 0, 0, 0),
-                            DayOfWeek = 6,
-                            IsClosed = false,
-                            OpenTime = new TimeSpan(0, 11, 0, 0, 0),
-                            RestaurantId = 9
-                        },
-                        new
-                        {
-                            BusinessHourId = 64,
-                            CloseTime = new TimeSpan(0, 22, 0, 0, 0),
-                            DayOfWeek = 0,
-                            IsClosed = false,
-                            OpenTime = new TimeSpan(0, 11, 0, 0, 0),
-                            RestaurantId = 10
-                        },
-                        new
-                        {
-                            BusinessHourId = 65,
-                            CloseTime = new TimeSpan(0, 22, 0, 0, 0),
-                            DayOfWeek = 1,
-                            IsClosed = false,
-                            OpenTime = new TimeSpan(0, 11, 0, 0, 0),
-                            RestaurantId = 10
-                        },
-                        new
-                        {
-                            BusinessHourId = 66,
-                            CloseTime = new TimeSpan(0, 22, 0, 0, 0),
-                            DayOfWeek = 2,
-                            IsClosed = false,
-                            OpenTime = new TimeSpan(0, 11, 0, 0, 0),
-                            RestaurantId = 10
-                        },
-                        new
-                        {
-                            BusinessHourId = 67,
-                            CloseTime = new TimeSpan(0, 22, 0, 0, 0),
-                            DayOfWeek = 3,
-                            IsClosed = false,
-                            OpenTime = new TimeSpan(0, 11, 0, 0, 0),
-                            RestaurantId = 10
-                        },
-                        new
-                        {
-                            BusinessHourId = 68,
-                            CloseTime = new TimeSpan(0, 22, 0, 0, 0),
-                            DayOfWeek = 4,
-                            IsClosed = false,
-                            OpenTime = new TimeSpan(0, 11, 0, 0, 0),
-                            RestaurantId = 10
-                        },
-                        new
-                        {
-                            BusinessHourId = 69,
-                            CloseTime = new TimeSpan(0, 22, 0, 0, 0),
-                            DayOfWeek = 5,
-                            IsClosed = false,
-                            OpenTime = new TimeSpan(0, 11, 0, 0, 0),
-                            RestaurantId = 10
-                        },
-                        new
-                        {
-                            BusinessHourId = 70,
-                            CloseTime = new TimeSpan(0, 22, 0, 0, 0),
-                            DayOfWeek = 6,
-                            IsClosed = false,
-                            OpenTime = new TimeSpan(0, 11, 0, 0, 0),
-                            RestaurantId = 10
-                        },
-                        new
-                        {
-                            BusinessHourId = 71,
-                            CloseTime = new TimeSpan(0, 22, 0, 0, 0),
-                            DayOfWeek = 0,
-                            IsClosed = false,
-                            OpenTime = new TimeSpan(0, 11, 0, 0, 0),
-                            RestaurantId = 11
-                        },
-                        new
-                        {
-                            BusinessHourId = 72,
-                            CloseTime = new TimeSpan(0, 22, 0, 0, 0),
-                            DayOfWeek = 1,
-                            IsClosed = false,
-                            OpenTime = new TimeSpan(0, 11, 0, 0, 0),
-                            RestaurantId = 11
-                        },
-                        new
-                        {
-                            BusinessHourId = 73,
-                            CloseTime = new TimeSpan(0, 22, 0, 0, 0),
-                            DayOfWeek = 2,
-                            IsClosed = false,
-                            OpenTime = new TimeSpan(0, 11, 0, 0, 0),
-                            RestaurantId = 11
-                        },
-                        new
-                        {
-                            BusinessHourId = 74,
-                            CloseTime = new TimeSpan(0, 22, 0, 0, 0),
-                            DayOfWeek = 3,
-                            IsClosed = false,
-                            OpenTime = new TimeSpan(0, 11, 0, 0, 0),
-                            RestaurantId = 11
-                        },
-                        new
-                        {
-                            BusinessHourId = 75,
-                            CloseTime = new TimeSpan(0, 22, 0, 0, 0),
-                            DayOfWeek = 4,
-                            IsClosed = false,
-                            OpenTime = new TimeSpan(0, 11, 0, 0, 0),
-                            RestaurantId = 11
-                        },
-                        new
-                        {
-                            BusinessHourId = 76,
-                            CloseTime = new TimeSpan(0, 22, 0, 0, 0),
-                            DayOfWeek = 5,
-                            IsClosed = false,
-                            OpenTime = new TimeSpan(0, 11, 0, 0, 0),
-                            RestaurantId = 11
-                        },
-                        new
-                        {
-                            BusinessHourId = 77,
-                            CloseTime = new TimeSpan(0, 22, 0, 0, 0),
-                            DayOfWeek = 6,
-                            IsClosed = false,
-                            OpenTime = new TimeSpan(0, 11, 0, 0, 0),
-                            RestaurantId = 11
-                        },
-                        new
-                        {
-                            BusinessHourId = 78,
-                            CloseTime = new TimeSpan(0, 22, 0, 0, 0),
-                            DayOfWeek = 0,
-                            IsClosed = false,
-                            OpenTime = new TimeSpan(0, 11, 0, 0, 0),
-                            RestaurantId = 12
-                        },
-                        new
-                        {
-                            BusinessHourId = 79,
-                            CloseTime = new TimeSpan(0, 22, 0, 0, 0),
-                            DayOfWeek = 1,
-                            IsClosed = false,
-                            OpenTime = new TimeSpan(0, 11, 0, 0, 0),
-                            RestaurantId = 12
-                        },
-                        new
-                        {
-                            BusinessHourId = 80,
-                            CloseTime = new TimeSpan(0, 22, 0, 0, 0),
-                            DayOfWeek = 2,
-                            IsClosed = false,
-                            OpenTime = new TimeSpan(0, 11, 0, 0, 0),
-                            RestaurantId = 12
-                        },
-                        new
-                        {
-                            BusinessHourId = 81,
-                            CloseTime = new TimeSpan(0, 22, 0, 0, 0),
-                            DayOfWeek = 3,
-                            IsClosed = false,
-                            OpenTime = new TimeSpan(0, 11, 0, 0, 0),
-                            RestaurantId = 12
-                        },
-                        new
-                        {
-                            BusinessHourId = 82,
-                            CloseTime = new TimeSpan(0, 22, 0, 0, 0),
-                            DayOfWeek = 4,
-                            IsClosed = false,
-                            OpenTime = new TimeSpan(0, 11, 0, 0, 0),
-                            RestaurantId = 12
-                        },
-                        new
-                        {
-                            BusinessHourId = 83,
-                            CloseTime = new TimeSpan(0, 22, 0, 0, 0),
-                            DayOfWeek = 5,
-                            IsClosed = false,
-                            OpenTime = new TimeSpan(0, 11, 0, 0, 0),
-                            RestaurantId = 12
-                        },
-                        new
-                        {
-                            BusinessHourId = 84,
-                            CloseTime = new TimeSpan(0, 22, 0, 0, 0),
-                            DayOfWeek = 6,
-                            IsClosed = false,
-                            OpenTime = new TimeSpan(0, 11, 0, 0, 0),
-                            RestaurantId = 12
-                        },
-                        new
-                        {
-                            BusinessHourId = 85,
-                            CloseTime = new TimeSpan(0, 22, 0, 0, 0),
-                            DayOfWeek = 0,
-                            IsClosed = false,
-                            OpenTime = new TimeSpan(0, 11, 0, 0, 0),
-                            RestaurantId = 13
-                        },
-                        new
-                        {
-                            BusinessHourId = 86,
-                            CloseTime = new TimeSpan(0, 22, 0, 0, 0),
-                            DayOfWeek = 1,
-                            IsClosed = false,
-                            OpenTime = new TimeSpan(0, 11, 0, 0, 0),
-                            RestaurantId = 13
-                        },
-                        new
-                        {
-                            BusinessHourId = 87,
-                            CloseTime = new TimeSpan(0, 22, 0, 0, 0),
-                            DayOfWeek = 2,
-                            IsClosed = false,
-                            OpenTime = new TimeSpan(0, 11, 0, 0, 0),
-                            RestaurantId = 13
-                        },
-                        new
-                        {
-                            BusinessHourId = 88,
-                            CloseTime = new TimeSpan(0, 22, 0, 0, 0),
-                            DayOfWeek = 3,
-                            IsClosed = false,
-                            OpenTime = new TimeSpan(0, 11, 0, 0, 0),
-                            RestaurantId = 13
-                        },
-                        new
-                        {
-                            BusinessHourId = 89,
-                            CloseTime = new TimeSpan(0, 22, 0, 0, 0),
-                            DayOfWeek = 4,
-                            IsClosed = false,
-                            OpenTime = new TimeSpan(0, 11, 0, 0, 0),
-                            RestaurantId = 13
-                        },
-                        new
-                        {
-                            BusinessHourId = 90,
-                            CloseTime = new TimeSpan(0, 22, 0, 0, 0),
-                            DayOfWeek = 5,
-                            IsClosed = false,
-                            OpenTime = new TimeSpan(0, 11, 0, 0, 0),
-                            RestaurantId = 13
-                        },
-                        new
-                        {
-                            BusinessHourId = 91,
-                            CloseTime = new TimeSpan(0, 22, 0, 0, 0),
-                            DayOfWeek = 6,
-                            IsClosed = false,
-                            OpenTime = new TimeSpan(0, 11, 0, 0, 0),
-                            RestaurantId = 13
-                        },
-                        new
-                        {
-                            BusinessHourId = 92,
-                            CloseTime = new TimeSpan(0, 22, 0, 0, 0),
-                            DayOfWeek = 0,
-                            IsClosed = false,
-                            OpenTime = new TimeSpan(0, 11, 0, 0, 0),
-                            RestaurantId = 14
-                        },
-                        new
-                        {
-                            BusinessHourId = 93,
-                            CloseTime = new TimeSpan(0, 22, 0, 0, 0),
-                            DayOfWeek = 1,
-                            IsClosed = false,
-                            OpenTime = new TimeSpan(0, 11, 0, 0, 0),
-                            RestaurantId = 14
-                        },
-                        new
-                        {
-                            BusinessHourId = 94,
-                            CloseTime = new TimeSpan(0, 22, 0, 0, 0),
-                            DayOfWeek = 2,
-                            IsClosed = false,
-                            OpenTime = new TimeSpan(0, 11, 0, 0, 0),
-                            RestaurantId = 14
-                        },
-                        new
-                        {
-                            BusinessHourId = 95,
-                            CloseTime = new TimeSpan(0, 22, 0, 0, 0),
-                            DayOfWeek = 3,
-                            IsClosed = false,
-                            OpenTime = new TimeSpan(0, 11, 0, 0, 0),
-                            RestaurantId = 14
-                        },
-                        new
-                        {
-                            BusinessHourId = 96,
-                            CloseTime = new TimeSpan(0, 22, 0, 0, 0),
-                            DayOfWeek = 4,
-                            IsClosed = false,
-                            OpenTime = new TimeSpan(0, 11, 0, 0, 0),
-                            RestaurantId = 14
-                        },
-                        new
-                        {
-                            BusinessHourId = 97,
-                            CloseTime = new TimeSpan(0, 22, 0, 0, 0),
-                            DayOfWeek = 5,
-                            IsClosed = false,
-                            OpenTime = new TimeSpan(0, 11, 0, 0, 0),
-                            RestaurantId = 14
-                        },
-                        new
-                        {
-                            BusinessHourId = 98,
-                            CloseTime = new TimeSpan(0, 22, 0, 0, 0),
-                            DayOfWeek = 6,
-                            IsClosed = false,
-                            OpenTime = new TimeSpan(0, 11, 0, 0, 0),
-                            RestaurantId = 14
-                        },
-                        new
-                        {
-                            BusinessHourId = 99,
-                            CloseTime = new TimeSpan(0, 22, 0, 0, 0),
-                            DayOfWeek = 0,
-                            IsClosed = false,
-                            OpenTime = new TimeSpan(0, 11, 0, 0, 0),
-                            RestaurantId = 15
-                        },
-                        new
-                        {
-                            BusinessHourId = 100,
-                            CloseTime = new TimeSpan(0, 22, 0, 0, 0),
-                            DayOfWeek = 1,
-                            IsClosed = false,
-                            OpenTime = new TimeSpan(0, 11, 0, 0, 0),
-                            RestaurantId = 15
-                        },
-                        new
-                        {
-                            BusinessHourId = 101,
-                            CloseTime = new TimeSpan(0, 22, 0, 0, 0),
-                            DayOfWeek = 2,
-                            IsClosed = false,
-                            OpenTime = new TimeSpan(0, 11, 0, 0, 0),
-                            RestaurantId = 15
-                        },
-                        new
-                        {
-                            BusinessHourId = 102,
-                            CloseTime = new TimeSpan(0, 22, 0, 0, 0),
-                            DayOfWeek = 3,
-                            IsClosed = false,
-                            OpenTime = new TimeSpan(0, 11, 0, 0, 0),
-                            RestaurantId = 15
-                        },
-                        new
-                        {
-                            BusinessHourId = 103,
-                            CloseTime = new TimeSpan(0, 22, 0, 0, 0),
-                            DayOfWeek = 4,
-                            IsClosed = false,
-                            OpenTime = new TimeSpan(0, 11, 0, 0, 0),
-                            RestaurantId = 15
-                        },
-                        new
-                        {
-                            BusinessHourId = 104,
-                            CloseTime = new TimeSpan(0, 22, 0, 0, 0),
-                            DayOfWeek = 5,
-                            IsClosed = false,
-                            OpenTime = new TimeSpan(0, 11, 0, 0, 0),
-                            RestaurantId = 15
-                        },
-                        new
-                        {
-                            BusinessHourId = 105,
-                            CloseTime = new TimeSpan(0, 22, 0, 0, 0),
-                            DayOfWeek = 6,
-                            IsClosed = false,
-                            OpenTime = new TimeSpan(0, 11, 0, 0, 0),
-                            RestaurantId = 15
-                        },
-                        new
-                        {
-                            BusinessHourId = 106,
-                            CloseTime = new TimeSpan(0, 22, 0, 0, 0),
-                            DayOfWeek = 0,
-                            IsClosed = false,
-                            OpenTime = new TimeSpan(0, 11, 0, 0, 0),
-                            RestaurantId = 16
-                        },
-                        new
-                        {
-                            BusinessHourId = 107,
-                            CloseTime = new TimeSpan(0, 22, 0, 0, 0),
-                            DayOfWeek = 1,
-                            IsClosed = false,
-                            OpenTime = new TimeSpan(0, 11, 0, 0, 0),
-                            RestaurantId = 16
-                        },
-                        new
-                        {
-                            BusinessHourId = 108,
-                            CloseTime = new TimeSpan(0, 22, 0, 0, 0),
-                            DayOfWeek = 2,
-                            IsClosed = false,
-                            OpenTime = new TimeSpan(0, 11, 0, 0, 0),
-                            RestaurantId = 16
-                        },
-                        new
-                        {
-                            BusinessHourId = 109,
-                            CloseTime = new TimeSpan(0, 22, 0, 0, 0),
-                            DayOfWeek = 3,
-                            IsClosed = false,
-                            OpenTime = new TimeSpan(0, 11, 0, 0, 0),
-                            RestaurantId = 16
-                        },
-                        new
-                        {
-                            BusinessHourId = 110,
-                            CloseTime = new TimeSpan(0, 22, 0, 0, 0),
-                            DayOfWeek = 4,
-                            IsClosed = false,
-                            OpenTime = new TimeSpan(0, 11, 0, 0, 0),
-                            RestaurantId = 16
-                        },
-                        new
-                        {
-                            BusinessHourId = 111,
-                            CloseTime = new TimeSpan(0, 22, 0, 0, 0),
-                            DayOfWeek = 5,
-                            IsClosed = false,
-                            OpenTime = new TimeSpan(0, 11, 0, 0, 0),
-                            RestaurantId = 16
-                        },
-                        new
-                        {
-                            BusinessHourId = 112,
-                            CloseTime = new TimeSpan(0, 22, 0, 0, 0),
-                            DayOfWeek = 6,
-                            IsClosed = false,
-                            OpenTime = new TimeSpan(0, 11, 0, 0, 0),
-                            RestaurantId = 16
                         });
                 });
 
@@ -2221,300 +704,6 @@ namespace ReservationApp.Migrations
                             DisplayOrder = 0,
                             FileName = "bistro_bella.jpg",
                             RestaurantId = 16
-                        });
-                });
-
-            modelBuilder.Entity("ReservationApp.Models.RestaurantSettings", b =>
-                {
-                    b.Property<int>("SettingsId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SettingsId"));
-
-                    b.Property<bool>("AcceptSameDayReservations")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("AllowCancellation")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("AllowReservationNotes")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("AutoConfirmReservations")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("BufferMinutes")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CancellationDeadlineHours")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MaxAdvanceBookingDays")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("MaxGuestsPerReservation")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MinAdvanceBookingHours")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ReservationDurationMinutes")
-                        .HasColumnType("int");
-
-                    b.Property<int>("RestaurantId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SlotGranularityMinutes")
-                        .HasColumnType("int");
-
-                    b.HasKey("SettingsId");
-
-                    b.HasIndex("RestaurantId")
-                        .IsUnique();
-
-                    b.ToTable("RestaurantSettings");
-
-                    b.HasData(
-                        new
-                        {
-                            SettingsId = 1,
-                            AcceptSameDayReservations = true,
-                            AllowCancellation = true,
-                            AllowReservationNotes = true,
-                            AutoConfirmReservations = true,
-                            BufferMinutes = 0,
-                            CancellationDeadlineHours = 0,
-                            MaxAdvanceBookingDays = 6,
-                            MinAdvanceBookingHours = 0,
-                            ReservationDurationMinutes = 90,
-                            RestaurantId = 1,
-                            SlotGranularityMinutes = 30
-                        },
-                        new
-                        {
-                            SettingsId = 2,
-                            AcceptSameDayReservations = true,
-                            AllowCancellation = true,
-                            AllowReservationNotes = true,
-                            AutoConfirmReservations = true,
-                            BufferMinutes = 0,
-                            CancellationDeadlineHours = 0,
-                            MaxAdvanceBookingDays = 6,
-                            MinAdvanceBookingHours = 0,
-                            ReservationDurationMinutes = 90,
-                            RestaurantId = 2,
-                            SlotGranularityMinutes = 30
-                        },
-                        new
-                        {
-                            SettingsId = 3,
-                            AcceptSameDayReservations = true,
-                            AllowCancellation = true,
-                            AllowReservationNotes = true,
-                            AutoConfirmReservations = true,
-                            BufferMinutes = 0,
-                            CancellationDeadlineHours = 0,
-                            MaxAdvanceBookingDays = 6,
-                            MinAdvanceBookingHours = 0,
-                            ReservationDurationMinutes = 90,
-                            RestaurantId = 3,
-                            SlotGranularityMinutes = 30
-                        },
-                        new
-                        {
-                            SettingsId = 4,
-                            AcceptSameDayReservations = true,
-                            AllowCancellation = true,
-                            AllowReservationNotes = true,
-                            AutoConfirmReservations = true,
-                            BufferMinutes = 0,
-                            CancellationDeadlineHours = 0,
-                            MaxAdvanceBookingDays = 6,
-                            MinAdvanceBookingHours = 0,
-                            ReservationDurationMinutes = 90,
-                            RestaurantId = 4,
-                            SlotGranularityMinutes = 30
-                        },
-                        new
-                        {
-                            SettingsId = 5,
-                            AcceptSameDayReservations = true,
-                            AllowCancellation = true,
-                            AllowReservationNotes = true,
-                            AutoConfirmReservations = true,
-                            BufferMinutes = 0,
-                            CancellationDeadlineHours = 0,
-                            MaxAdvanceBookingDays = 6,
-                            MinAdvanceBookingHours = 0,
-                            ReservationDurationMinutes = 90,
-                            RestaurantId = 5,
-                            SlotGranularityMinutes = 30
-                        },
-                        new
-                        {
-                            SettingsId = 6,
-                            AcceptSameDayReservations = true,
-                            AllowCancellation = true,
-                            AllowReservationNotes = true,
-                            AutoConfirmReservations = true,
-                            BufferMinutes = 0,
-                            CancellationDeadlineHours = 0,
-                            MaxAdvanceBookingDays = 6,
-                            MinAdvanceBookingHours = 0,
-                            ReservationDurationMinutes = 90,
-                            RestaurantId = 6,
-                            SlotGranularityMinutes = 30
-                        },
-                        new
-                        {
-                            SettingsId = 7,
-                            AcceptSameDayReservations = true,
-                            AllowCancellation = true,
-                            AllowReservationNotes = true,
-                            AutoConfirmReservations = true,
-                            BufferMinutes = 0,
-                            CancellationDeadlineHours = 0,
-                            MaxAdvanceBookingDays = 6,
-                            MinAdvanceBookingHours = 0,
-                            ReservationDurationMinutes = 90,
-                            RestaurantId = 7,
-                            SlotGranularityMinutes = 30
-                        },
-                        new
-                        {
-                            SettingsId = 8,
-                            AcceptSameDayReservations = true,
-                            AllowCancellation = true,
-                            AllowReservationNotes = true,
-                            AutoConfirmReservations = true,
-                            BufferMinutes = 0,
-                            CancellationDeadlineHours = 0,
-                            MaxAdvanceBookingDays = 6,
-                            MinAdvanceBookingHours = 0,
-                            ReservationDurationMinutes = 90,
-                            RestaurantId = 8,
-                            SlotGranularityMinutes = 30
-                        },
-                        new
-                        {
-                            SettingsId = 9,
-                            AcceptSameDayReservations = true,
-                            AllowCancellation = true,
-                            AllowReservationNotes = true,
-                            AutoConfirmReservations = true,
-                            BufferMinutes = 0,
-                            CancellationDeadlineHours = 0,
-                            MaxAdvanceBookingDays = 6,
-                            MinAdvanceBookingHours = 0,
-                            ReservationDurationMinutes = 90,
-                            RestaurantId = 9,
-                            SlotGranularityMinutes = 30
-                        },
-                        new
-                        {
-                            SettingsId = 10,
-                            AcceptSameDayReservations = true,
-                            AllowCancellation = true,
-                            AllowReservationNotes = true,
-                            AutoConfirmReservations = true,
-                            BufferMinutes = 0,
-                            CancellationDeadlineHours = 0,
-                            MaxAdvanceBookingDays = 6,
-                            MinAdvanceBookingHours = 0,
-                            ReservationDurationMinutes = 90,
-                            RestaurantId = 10,
-                            SlotGranularityMinutes = 30
-                        },
-                        new
-                        {
-                            SettingsId = 11,
-                            AcceptSameDayReservations = true,
-                            AllowCancellation = true,
-                            AllowReservationNotes = true,
-                            AutoConfirmReservations = true,
-                            BufferMinutes = 0,
-                            CancellationDeadlineHours = 0,
-                            MaxAdvanceBookingDays = 6,
-                            MinAdvanceBookingHours = 0,
-                            ReservationDurationMinutes = 90,
-                            RestaurantId = 11,
-                            SlotGranularityMinutes = 30
-                        },
-                        new
-                        {
-                            SettingsId = 12,
-                            AcceptSameDayReservations = true,
-                            AllowCancellation = true,
-                            AllowReservationNotes = true,
-                            AutoConfirmReservations = true,
-                            BufferMinutes = 0,
-                            CancellationDeadlineHours = 0,
-                            MaxAdvanceBookingDays = 6,
-                            MinAdvanceBookingHours = 0,
-                            ReservationDurationMinutes = 90,
-                            RestaurantId = 12,
-                            SlotGranularityMinutes = 30
-                        },
-                        new
-                        {
-                            SettingsId = 13,
-                            AcceptSameDayReservations = true,
-                            AllowCancellation = true,
-                            AllowReservationNotes = true,
-                            AutoConfirmReservations = true,
-                            BufferMinutes = 0,
-                            CancellationDeadlineHours = 0,
-                            MaxAdvanceBookingDays = 6,
-                            MinAdvanceBookingHours = 0,
-                            ReservationDurationMinutes = 90,
-                            RestaurantId = 13,
-                            SlotGranularityMinutes = 30
-                        },
-                        new
-                        {
-                            SettingsId = 14,
-                            AcceptSameDayReservations = true,
-                            AllowCancellation = true,
-                            AllowReservationNotes = true,
-                            AutoConfirmReservations = true,
-                            BufferMinutes = 0,
-                            CancellationDeadlineHours = 0,
-                            MaxAdvanceBookingDays = 6,
-                            MinAdvanceBookingHours = 0,
-                            ReservationDurationMinutes = 90,
-                            RestaurantId = 14,
-                            SlotGranularityMinutes = 30
-                        },
-                        new
-                        {
-                            SettingsId = 15,
-                            AcceptSameDayReservations = true,
-                            AllowCancellation = true,
-                            AllowReservationNotes = true,
-                            AutoConfirmReservations = true,
-                            BufferMinutes = 0,
-                            CancellationDeadlineHours = 0,
-                            MaxAdvanceBookingDays = 6,
-                            MinAdvanceBookingHours = 0,
-                            ReservationDurationMinutes = 90,
-                            RestaurantId = 15,
-                            SlotGranularityMinutes = 30
-                        },
-                        new
-                        {
-                            SettingsId = 16,
-                            AcceptSameDayReservations = true,
-                            AllowCancellation = true,
-                            AllowReservationNotes = true,
-                            AutoConfirmReservations = true,
-                            BufferMinutes = 0,
-                            CancellationDeadlineHours = 0,
-                            MaxAdvanceBookingDays = 6,
-                            MinAdvanceBookingHours = 0,
-                            ReservationDurationMinutes = 90,
-                            RestaurantId = 16,
-                            SlotGranularityMinutes = 30
                         });
                 });
 
@@ -4443,12 +2632,6 @@ namespace ReservationApp.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("ReservationApp.Models.City", "City")
-                        .WithMany("Restaurants")
-                        .HasForeignKey("CityId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.HasOne("ReservationApp.Models.ApplicationUser", "OwnerUser")
                         .WithMany()
                         .HasForeignKey("OwnerUserId")
@@ -4456,20 +2639,7 @@ namespace ReservationApp.Migrations
 
                     b.Navigation("Category");
 
-                    b.Navigation("City");
-
                     b.Navigation("OwnerUser");
-                });
-
-            modelBuilder.Entity("ReservationApp.Models.RestaurantBusinessHour", b =>
-                {
-                    b.HasOne("ReservationApp.Models.Restaurant", "Restaurant")
-                        .WithMany("BusinessHours")
-                        .HasForeignKey("RestaurantId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Restaurant");
                 });
 
             modelBuilder.Entity("ReservationApp.Models.RestaurantImage", b =>
@@ -4477,17 +2647,6 @@ namespace ReservationApp.Migrations
                     b.HasOne("ReservationApp.Models.Restaurant", "Restaurant")
                         .WithMany("Images")
                         .HasForeignKey("RestaurantId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Restaurant");
-                });
-
-            modelBuilder.Entity("ReservationApp.Models.RestaurantSettings", b =>
-                {
-                    b.HasOne("ReservationApp.Models.Restaurant", "Restaurant")
-                        .WithOne("Settings")
-                        .HasForeignKey("ReservationApp.Models.RestaurantSettings", "RestaurantId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -4510,20 +2669,11 @@ namespace ReservationApp.Migrations
                     b.Navigation("Restaurants");
                 });
 
-            modelBuilder.Entity("ReservationApp.Models.City", b =>
-                {
-                    b.Navigation("Restaurants");
-                });
-
             modelBuilder.Entity("ReservationApp.Models.Restaurant", b =>
                 {
-                    b.Navigation("BusinessHours");
-
                     b.Navigation("Images");
 
                     b.Navigation("Reservation");
-
-                    b.Navigation("Settings");
 
                     b.Navigation("Tables");
                 });
