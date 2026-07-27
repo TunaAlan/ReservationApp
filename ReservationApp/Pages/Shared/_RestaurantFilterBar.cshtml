@@ -1,0 +1,45 @@
+@model ReservationApp.Models.RestaurantFilter
+
+<form method="get" action="@Model.ActionUrl" class="filter-bar">
+    <div class="filter-bar-search">
+        <i class="bi bi-search"></i>
+        <input type="text" name="Search" value="@Model.Search" class="filter-bar-input" placeholder="Search by restaurant name..." />
+    </div>
+
+    <select name="CategoryId" class="form-select filter-bar-select">
+        <option value="">All Categories</option>
+        @foreach (var item in Model.CategoryOptions)
+        {
+            if (item.Value == Model.CategoryId?.ToString())
+            {
+                <option value="@item.Value" selected>@item.Text</option>
+            }
+            else
+            {
+                <option value="@item.Value">@item.Text</option>
+            }
+        }
+    </select>
+
+    <select name="CityId" class="form-select filter-bar-select">
+        <option value="">All Cities</option>
+        @foreach (var item in Model.CityOptions)
+        {
+            if (item.Value == Model.CityId?.ToString())
+            {
+                <option value="@item.Value" selected>@item.Text</option>
+            }
+            else
+            {
+                <option value="@item.Value">@item.Text</option>
+            }
+        }
+    </select>
+
+    <button type="submit" class="action-btn primary-btn"><i class="bi bi-funnel"></i> Filter</button>
+
+    @if (!string.IsNullOrWhiteSpace(Model.Search) || Model.CategoryId.HasValue || Model.CityId.HasValue)
+    {
+        <a href="@Model.ActionUrl" class="action-btn outline-btn"><i class="bi bi-x-circle"></i> Clear</a>
+    }
+</form>

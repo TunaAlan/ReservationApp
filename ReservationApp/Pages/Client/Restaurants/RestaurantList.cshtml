@@ -3,13 +3,16 @@
 @{
 }
 
-<h2 class="text-center mb-5"><i class="bi bi-shop-window"></i> List of Restaurants</h2>
+<h2 class="text-center mb-4"><i class="bi bi-shop-window"></i> Restaurants</h2>
+
+<partial name="_RestaurantFilterBar" model="Model.Filter" />
 
 @if (!Model.Restaurants.Any())
 {
+    var isFiltered = !string.IsNullOrWhiteSpace(Model.Search) || Model.CategoryId.HasValue || Model.CityId.HasValue;
     <div class="text-center text-muted py-5">
-        <i class="bi bi-shop display-4"></i>
-        <p class="lead mt-3">No restaurants available yet. Check back soon.</p>
+        <i class="bi @(isFiltered ? "bi-search" : "bi-shop") display-4"></i>
+        <p class="lead mt-3">@(isFiltered ? "No restaurants match your search." : "No restaurants available yet. Check back soon.")</p>
     </div>
 }
 else
@@ -18,13 +21,29 @@ else
         @foreach (var restaurant in Model.Restaurants)
         {
             <div class="col-sm-6 col-lg-4">
-                <div class="card h-100 shadow-sm">
-                    <img src="/Restaurant_Img/@restaurant.ImageFileName" class="card-img-top restaurant-card-img" alt="@restaurant.Name" />
+                <div class="card h-100 shadow-sm position-relative">
+                    @if (Model.FullTodayRestaurantIds.Contains(restaurant.RestaurantId))
+                    {
+                        <span class="full-today-badge">
+                            <i class="bi bi-x-circle-fill"></i> Capacity Full Today
+                        </span>
+                    }
+                    @if (restaurant.CoverImageFileName != null)
+                    {
+                        <img src="/Restaurant_Img/@restaurant.CoverImageFileName" class="card-img-top restaurant-card-img" alt="@restaurant.Name" />
+                    }
+                    else
+                    {
+                        <div class="card-img-top restaurant-card-img no-image-placeholder"><i class="bi bi-image display-4"></i></div>
+                    }
                     <div class="card-body d-flex flex-column">
                         <h5 class="card-title">@restaurant.Name</h5>
-                        <span class="badge bg-secondary align-self-start mb-2">@restaurant.Category</span>
+                        <div class="d-flex align-items-center gap-2 mb-2 flex-wrap">
+                            <span class="badge bg-secondary">@restaurant.Category?.Name</span>
+                            <span class="location-pill"><i class="bi bi-geo-alt-fill"></i> @restaurant.City?.Name</span>
+                        </div>
                         <p class="card-text text-muted mb-3">
-                            <i class="bi bi-geo-alt"></i> @restaurant.Address
+                            @restaurant.District — @restaurant.Address
                         </p>
                         <div class="mt-auto d-flex gap-2">
                             <button type="button" class="btn btn-outline-secondary flex-fill" data-bs-toggle="modal" data-bs-target="#details-@restaurant.RestaurantId">
@@ -46,12 +65,15 @@ else
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <img src="/Restaurant_Img/@restaurant.ImageFileName" class="img-fluid rounded mb-3 restaurant-card-img" alt="@restaurant.Name" />
+                            <div class="mb-3">
+                                <partial name="_RestaurantGallery" model="restaurant" />
+                            </div>
                             <partial name="_RestaurantDetailList" model="restaurant" />
+                            <partial name="_WeeklyOccupancyStrip" model="Model.WeeklyOccupancyByRestaurant.GetValueOrDefault(restaurant.RestaurantId, new())" />
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <a class="btn btn-primary" href="/Client/Restaurants/AddReservation?id=@restaurant.RestaurantId">
+                            <button type="button" class="action-btn close-btn" data-bs-dismiss="modal">Close</button>
+                            <a class="action-btn primary-btn" href="/Client/Restaurants/AddReservation?id=@restaurant.RestaurantId">
                                 <i class="bi bi-calendar-plus"></i> Reserve Now
                             </a>
                         </div>
@@ -60,4 +82,8 @@ else
             </div>
         }
     </div>
+}
+
+@section Scripts {
+    <script src="~/js/restaurant-filter.js" asp-append-version="true"></script>
 }

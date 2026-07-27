@@ -1,0 +1,30 @@
+@model ReservationApp.Models.Restaurant
+@{
+    var images = Model.Images.OrderBy(i => i.DisplayOrder).Select(i => i.FileName).ToList();
+}
+
+@if (!images.Any())
+{
+    <div class="gallery-hero no-image-placeholder">
+        <i class="bi bi-image display-4"></i>
+    </div>
+}
+else
+{
+    <div class="restaurant-gallery" data-images="@System.Text.Json.JsonSerializer.Serialize(images)">
+        <div class="gallery-hero">
+            <img src="/Restaurant_Img/@images[0]" class="gallery-hero-img" alt="@Model.Name" />
+            <div class="gallery-zoom-hint"><i class="bi bi-zoom-in"></i></div>
+            @if (images.Count > 1)
+            {
+                <div class="gallery-zone gallery-zone-left" data-gallery-prev>
+                    <i class="bi bi-chevron-left"></i>
+                </div>
+                <div class="gallery-zone gallery-zone-right" data-gallery-next>
+                    <i class="bi bi-chevron-right"></i>
+                </div>
+                <div class="gallery-counter">1 / @images.Count</div>
+            }
+        </div>
+    </div>
+}

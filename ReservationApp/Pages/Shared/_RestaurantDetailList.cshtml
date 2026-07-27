@@ -3,11 +3,14 @@
 <dl class="detail-list mb-0">
     <div class="detail-row">
         <dt><span class="detail-icon"><i class="bi bi-tag"></i></span> Category</dt>
-        <dd><span class="badge bg-secondary">@Model.Category</span></dd>
+        <dd><span class="badge bg-secondary">@Model.Category?.Name</span></dd>
     </div>
     <div class="detail-row">
-        <dt><span class="detail-icon"><i class="bi bi-geo-alt"></i></span> Address</dt>
-        <dd>@Model.Address</dd>
+        <dt><span class="detail-icon"><i class="bi bi-geo-alt-fill"></i></span> Location</dt>
+        <dd>
+            <div class="fw-semibold">@Model.City?.Name<span class="text-muted fw-normal"> · @Model.District</span></div>
+            <div class="text-muted small">@Model.Address</div>
+        </dd>
     </div>
     <div class="detail-row">
         <dt><span class="detail-icon"><i class="bi bi-telephone"></i></span> Phone</dt>
