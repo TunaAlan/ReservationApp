@@ -7,13 +7,14 @@
 <ul class="navbar-nav">
 @if (SignInManager.IsSignedIn(User))
 {
-    if (User.IsInRole("admin") || User.IsInRole("client"))
+    if (User.IsInRole("admin") || User.IsInRole("client") || User.IsInRole("restaurant"))
     {
-        var isAdmin = User.IsInRole("admin");
+        var roleLabel = User.IsInRole("admin") ? "Admin" : User.IsInRole("restaurant") ? "Restaurant Owner" : "Client";
+        var roleIcon = User.IsInRole("admin") ? "bi-person-gear" : User.IsInRole("restaurant") ? "bi-shop" : "bi-person";
         <li class="nav-item dropdown">
 
             <a class="nav-link dropdown-toggle role-pill" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <i class="bi @(isAdmin ? "bi-person-gear" : "bi-person")"></i> @(isAdmin ? "Admin" : "Client")
+                <i class="bi @roleIcon"></i> @roleLabel
             </a>
 
             <ul class="dropdown-menu dropdown-menu-end">

@@ -74,6 +74,12 @@ namespace ReservationApp.Areas.Identity.Pages.Account
             [Required]
             public string Address { get; set; }
 
+            // Only "client" and "restaurant" are self-registerable — "admin" is
+            // never chosen by the user, only seeded/assigned directly.
+            [Required]
+            [Display(Name = "Account type")]
+            public string Role { get; set; } = "client";
+
             [Required]
             [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
             [DataType(DataType.Password)]
@@ -121,7 +127,8 @@ namespace ReservationApp.Areas.Identity.Pages.Account
                     _logger.LogInformation("User created a new account with password.");
 
                    //User Role
-                   await _userManager.AddToRoleAsync(user, "client");
+                   var role = Input.Role == "restaurant" ? "restaurant" : "client";
+                   await _userManager.AddToRoleAsync(user, role);
                    //////////////////////////////////////////////////
 
                     var userId = await _userManager.GetUserIdAsync(user);

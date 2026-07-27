@@ -1,0 +1,16 @@
+@model List<ReservationApp.Services.ReservationAvailability.WeeklyOccupancy>
+
+<div class="mt-3">
+    <h6 class="text-muted mb-2"><i class="bi bi-graph-up"></i> Seat Occupancy — Next 7 Days</h6>
+    <div class="availability-strip">
+        @foreach (var day in Model)
+        {
+            var badgeClass = day.OccupancyPercent >= 80 ? "bg-danger" : day.OccupancyPercent >= 50 ? "bg-warning text-dark" : "bg-success";
+            <div class="availability-day">
+                <div class="availability-day-name">@day.Date.ToString("ddd")</div>
+                <div class="availability-day-date">@day.Date.ToString("MMM d")</div>
+                <span class="badge @badgeClass mt-1">@day.OccupancyPercent%</span>
+            </div>
+        }
+    </div>
+</div>
