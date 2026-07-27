@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 > **Status:** Pre-production demo / learning project — no formal release has shipped yet.
 
+## [0.5.0] - 2026-07-27
+
+**Fixed — Retroactive Double-Booking via Settings Changes**
+- The booking engine always computed how long a reservation occupied its table from the restaurant's *current* `RestaurantSettings`, never from what was in effect at the moment it was actually booked. An owner shortening turn-time or cleanup buffer after a guest had already booked would make the engine treat that guest's table as free earlier than promised — a real double-booking window for anyone who booked into the gap in between.
+- `Reservation` now snapshots `DurationMinutes`/`BufferMinutes` at booking time (`Migrations/20260725012007_AddReservationDurationBufferSnapshot`, backfilled from each existing reservation's restaurant's settings at the time of the migration). `ReservationAvailability.Overlaps` is now intentionally asymmetric: an *existing* reservation's occupied window always comes from its own snapshot, while a *candidate* new booking's window comes from the restaurant's live settings — answering "would this new request collide with what was already promised?" rather than "would it collide under today's settings?"
+- Verified end-to-end: booked the only large-enough table at a restaurant, shortened the restaurant's turn-time afterward, and confirmed the table stayed correctly blocked through its original window and became bookable again exactly on time — not early.
+
 ## [0.4.0] - 2026-07-27
 
 **Added — Restaurant Owner Portal**
