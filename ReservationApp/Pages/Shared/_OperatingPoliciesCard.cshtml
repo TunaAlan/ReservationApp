@@ -1,0 +1,36 @@
+@model ReservationApp.Models.RestaurantSettingsFormModel
+
+<div class="card owner-panel-card mb-4">
+    <div class="card-body">
+        <h5 class="card-title"><i class="bi bi-shield-check"></i> Operating Policies</h5>
+
+        <div class="form-check mb-2">
+            <input type="checkbox" class="form-check-input" asp-for="AcceptSameDayReservations" />
+            <label class="form-check-label" asp-for="AcceptSameDayReservations">Accept same-day reservations</label>
+        </div>
+        <div class="form-check mb-2">
+            <input type="checkbox" class="form-check-input" asp-for="AllowReservationNotes" />
+            <label class="form-check-label" asp-for="AllowReservationNotes">Allow guests to add a note to their reservation</label>
+        </div>
+        <div class="form-check mb-2">
+            <input type="checkbox" class="form-check-input" asp-for="AutoConfirmReservations" />
+            <label class="form-check-label" asp-for="AutoConfirmReservations">Automatically confirm reservations</label>
+            <div class="form-text">When off, new reservations are marked "Pending confirmation" instead of being confirmed immediately.</div>
+        </div>
+        <div class="form-check mb-3">
+            <input type="checkbox" class="form-check-input" asp-for="AllowCancellation" />
+            <label class="form-check-label" asp-for="AllowCancellation">Allow guests to cancel their reservation</label>
+        </div>
+
+        <div class="row g-3">
+            <div class="col-sm-6">
+                <label class="form-label">Cancellation Deadline</label>
+                <div class="input-group">
+                    <input type="number" class="form-control" asp-for="CancellationDeadlineHours" min="0" max="720" />
+                    <span class="input-group-text">hours before</span>
+                </div>
+                <div class="form-text">How close to the reservation time a guest can still cancel. 0 = any time.</div>
+            </div>
+        </div>
+    </div>
+</div>

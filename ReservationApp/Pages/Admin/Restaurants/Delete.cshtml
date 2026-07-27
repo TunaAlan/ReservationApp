@@ -4,20 +4,72 @@
     ViewData["Title"] = "Delete Restaurant";
 }
 
-<h1>Delete Restaurant</h1>
+<h2 class="text-center mb-4"><i class="bi bi-shop"></i> Delete Restaurant</h2>
 
-<div class="alert alert-warning">
-    Are you sure you want to delete <strong>@Model.Restaurant?.Name</strong>? This action cannot be undone.
-</div>
+@if (!string.IsNullOrEmpty(Model.errorMessage))
+{
+    <div class="alert alert-danger" role="alert">
+        <i class="bi bi-exclamation-triangle-fill"></i> @Model.errorMessage
+    </div>
+}
+else if (Model.ActiveReservationsUsingIt > 0)
+{
+    <div class="alert alert-danger d-flex justify-content-between align-items-center flex-wrap gap-2" role="alert">
+        <span><i class="bi bi-exclamation-triangle-fill"></i> This restaurant has @Model.ActiveReservationsUsingIt upcoming reservation(s) and cannot be deleted.</span>
+        <button type="button" class="btn btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target="#reservations-modal">
+            <i class="bi bi-list-check"></i> View Reservations
+        </button>
+    </div>
+}
+else
+{
+    <div class="alert alert-warning">
+        Are you sure you want to delete <strong>@Model.Restaurant?.Name</strong>? This also permanently deletes its @Model.Restaurant?.Tables.Count table(s). This action cannot be undone.
+    </div>
+}
 
-<dl class="row">
-    <dt class="col-sm-2">Category</dt>
-    <dd class="col-sm-10">@Model.Restaurant?.Category</dd>
-    <dt class="col-sm-2">Address</dt>
-    <dd class="col-sm-10">@Model.Restaurant?.Address</dd>
-</dl>
+@if (Model.Restaurant != null)
+{
+    <partial name="_RestaurantDetailList" model="Model.Restaurant" />
+}
 
-<form method="post">
-    <button type="submit" class="btn btn-danger">Delete</button>
-    <a asp-page="./Index" class="btn btn-secondary">Cancel</a>
+<form method="post" class="d-flex justify-content-end gap-2 mt-4">
+    <a asp-page="./Index" class="action-btn close-btn">Cancel</a>
+    <button type="submit" class="action-btn edit-delete-btn delete" disabled="@(Model.ActiveReservationsUsingIt > 0)">Delete</button>
 </form>
+
+@if (Model.ActiveReservations.Any())
+{
+    <div class="modal fade" id="reservations-modal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"><i class="bi bi-list-check"></i> Upcoming Reservations — @Model.Restaurant?.Name</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-striped align-middle mb-0">
+                        <tr>
+                            <th>Date &amp; Time</th>
+                            <th>Guests</th>
+                            <th>Table</th>
+                            <th>Customer</th>
+                        </tr>
+                        @foreach (var reservation in Model.ActiveReservations)
+                        {
+                            <tr>
+                                <td>@reservation.ReservationDate.ToString("MM/dd/yyyy h:mm tt")</td>
+                                <td>@reservation.NumberOfPeople</td>
+                                <td>@(reservation.Table?.Label ?? "—")</td>
+                                <td>@(reservation.User?.Email ?? "—")</td>
+                            </tr>
+                        }
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="action-btn close-btn" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}

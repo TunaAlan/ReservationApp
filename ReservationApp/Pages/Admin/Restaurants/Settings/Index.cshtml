@@ -1,0 +1,35 @@
+@page
+@model ReservationApp.Pages.Admin.Restaurants.Settings.IndexModel
+@{
+    ViewData["Title"] = "Restaurant Settings";
+}
+
+<div class="page-toolbar">
+    <div>
+        <h2 class="page-toolbar-title"><i class="bi bi-sliders"></i> Restaurant Settings</h2>
+        <p class="page-toolbar-subtitle">Hours, booking rules and policies for @Model.RestaurantName.</p>
+    </div>
+</div>
+
+@if (!string.IsNullOrEmpty(Model.successMessage))
+{
+    <div class="alert alert-success" role="alert">
+        <i class="bi bi-check-circle-fill"></i> @Model.successMessage
+    </div>
+}
+
+<form method="post">
+    <input type="hidden" asp-for="RestaurantId" />
+    <partial name="_BusinessHoursCard" for="Form" />
+    <partial name="_ReservationRulesCard" for="Form" />
+    <partial name="_OperatingPoliciesCard" for="Form" />
+
+    <div class="d-flex justify-content-end gap-2">
+        <a class="action-btn close-btn" href="/Admin/Restaurants/Index">Cancel</a>
+        <button type="submit" class="action-btn primary-btn"><i class="bi bi-check-lg"></i> Save Changes</button>
+    </div>
+</form>
+
+@section Scripts {
+    <script src="~/js/business-hours.js" asp-append-version="true"></script>
+}

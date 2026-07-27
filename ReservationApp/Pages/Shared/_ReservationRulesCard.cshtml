@@ -1,0 +1,63 @@
+@model ReservationApp.Models.RestaurantSettingsFormModel
+
+<div class="card owner-panel-card mb-4">
+    <div class="card-body">
+        <h5 class="card-title"><i class="bi bi-sliders"></i> Reservation Rules</h5>
+
+        <div class="mb-3">
+            <label class="form-label">Reservation Duration</label>
+            <div class="d-flex gap-3 flex-wrap">
+                @foreach (var minutes in new[] { 30, 60, 90, 120 })
+                {
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" asp-for="ReservationDurationMinutes" value="@minutes" id="duration-@minutes" />
+                        <label class="form-check-label" for="duration-@minutes">@minutes min</label>
+                    </div>
+                }
+            </div>
+            <div class="form-text">How long a table is occupied by a single reservation.</div>
+        </div>
+
+        <div class="row g-3 mb-3">
+            <div class="col-sm-6">
+                <label class="form-label">Buffer Between Reservations</label>
+                <div class="input-group">
+                    <input type="number" class="form-control" asp-for="BufferMinutes" min="0" max="120" />
+                    <span class="input-group-text">minutes</span>
+                </div>
+                <div class="form-text">Cleanup time after each reservation before the table is bookable again.</div>
+            </div>
+            <div class="col-sm-6">
+                <label class="form-label">Time Slot Granularity</label>
+                <select class="form-select" asp-for="SlotGranularityMinutes">
+                    @foreach (var minutes in new[] { 15, 30, 45, 60 })
+                    {
+                        <option value="@minutes">@minutes min</option>
+                    }
+                </select>
+                <div class="form-text">How closely spaced the times customers can pick are.</div>
+            </div>
+        </div>
+
+        <div class="row g-3">
+            <div class="col-sm-4">
+                <label class="form-label">Max Guests per Reservation</label>
+                <input type="number" class="form-control" asp-for="MaxGuestsPerReservation" min="1" placeholder="No limit" />
+            </div>
+            <div class="col-sm-4">
+                <label class="form-label">Minimum Advance Booking</label>
+                <div class="input-group">
+                    <input type="number" class="form-control" asp-for="MinAdvanceBookingHours" min="0" />
+                    <span class="input-group-text">hours</span>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <label class="form-label">Maximum Advance Booking</label>
+                <div class="input-group">
+                    <input type="number" class="form-control" asp-for="MaxAdvanceBookingDays" min="1" max="365" />
+                    <span class="input-group-text">days</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

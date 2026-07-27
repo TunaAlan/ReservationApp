@@ -5,7 +5,7 @@
 
 <div class="row">
     <div class="col-md-8 mx-auto rounded border p-3">
-        <h2 class="text-center mb-5">Edit Restaurant Information</h2>
+        <h2 class="text-center mb-5"><i class="bi bi-shop"></i> Edit Restaurant Information</h2>
 
         @if (Model.errorMessage.Length > 0)
         {
@@ -22,20 +22,14 @@
             </div>
         }
 
-        <form method="post" enctype="multipart/form-data">
+        <form method="post">
             <div class="row mb-3">
                 <label class="col-sm-4 col-form-label">Category</label>
                 <div class="col-sm-8">
-                    <select class="form-select" asp-for="RestaurantDto.Category">
-                        <option value="Seafood">Seafood</option>
-                        <option value="Fine Dining">Fine Dining</option> 
-                        <option value="Fast Food">Fast Food</option>
-                        <option value="Japanese">Japanese</option>
-                        <option value="Italian">Italian</option>
-                        <option value="Cafe">Cafe</option>
-                        <option value="Steakhouse">Steakhouse</option>
-                        <option value="Bistro">Bistro</option>
+                    <select class="form-select" asp-for="RestaurantDto.CategoryId" asp-items="Model.CategoryOptions">
+                        <option value="">-- Select a category --</option>
                     </select>
+                    <span asp-validation-for="RestaurantDto.CategoryId" class="text-danger"></span>
                 </div>
             </div>
 
@@ -47,11 +41,33 @@
                 </div>
             </div>
             
-            <div class="row mb-3">
-                <label class="col-sm-4 col-form-label">Address</label>
-                <div class="col-sm-8">
-                    <input class="form-control" asp-for="RestaurantDto.Address">
-                    <span asp-validation-for="RestaurantDto.Address" class="text-danger"></span>
+            <div class="location-highlight">
+                <div class="location-highlight-title"><i class="bi bi-geo-alt-fill"></i> Location</div>
+
+                <div class="row mb-3">
+                    <label class="col-sm-4 col-form-label">City</label>
+                    <div class="col-sm-8">
+                        <select class="form-select" asp-for="RestaurantDto.CityId" asp-items="Model.CityOptions">
+                            <option value="">-- Select a city --</option>
+                        </select>
+                        <span asp-validation-for="RestaurantDto.CityId" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label class="col-sm-4 col-form-label">District</label>
+                    <div class="col-sm-8">
+                        <input class="form-control" asp-for="RestaurantDto.District" placeholder="e.g. Kadıköy">
+                        <span asp-validation-for="RestaurantDto.District" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label class="col-sm-4 col-form-label">Street Address</label>
+                    <div class="col-sm-8">
+                        <input class="form-control" asp-for="RestaurantDto.Address" placeholder="e.g. Bahariye Cd. No:12">
+                        <span asp-validation-for="RestaurantDto.Address" class="text-danger"></span>
+                    </div>
                 </div>
             </div>
 
@@ -73,25 +89,27 @@
 
             <div class="row mb-3">
                 <label class="col-sm-4 col-form-label">Capacity</label>
-                <div class="col-sm-8">
-                    <input class="form-control" asp-for="RestaurantDto.Capacity">
-                    <span asp-validation-for="RestaurantDto.Capacity" class="text-danger"></span>
+                <div class="col-sm-8 pt-2">
+                    @Model.CurrentCapacity people (@Model.CurrentTableCount tables) —
+                    <a href="/Admin/Restaurants/Tables/Index?restaurantId=@Model.RestaurantDto.RestaurantId"><i class="bi bi-grid-3x3-gap"></i> Manage Tables</a>
                 </div>
             </div>
 
             <div class="row mb-3">
-            <label class="col-sm-4 col-form-label">Current Image</label>
-                <div class="col-sm-8">
-                <img src="/Restaurant_Img/@Model.CurrentImageFileName" width="150" alt="Restaurant Image"/>
+                <label class="col-sm-4 col-form-label">Photos</label>
+                <div class="col-sm-8 pt-2">
+                    @Model.CurrentPhotoCount gallery photo(s) —
+                    <a href="/Admin/Restaurants/Images/Index?restaurantId=@Model.RestaurantDto.RestaurantId"><i class="bi bi-images"></i> Manage Photos</a>
                 </div>
             </div>
 
-
             <div class="row mb-3">
-                <label class="col-sm-4 col-form-label">Image</label>
+                <label class="col-sm-4 col-form-label">Owner</label>
                 <div class="col-sm-8">
-                    <input class="form-control" asp-for="RestaurantDto.ImageFile">
-                    <span asp-validation-for="RestaurantDto.ImageFile" class="text-danger"></span>
+                    <select class="form-select" asp-for="RestaurantDto.OwnerUserId" asp-items="Model.OwnerOptions">
+                        <option value="">-- Unassigned --</option>
+                    </select>
+                    <div class="form-text"><i class="bi bi-info-circle"></i> Only registered "Restaurant Owner" accounts appear here.</div>
                 </div>
             </div>
 

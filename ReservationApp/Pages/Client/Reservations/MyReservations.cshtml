@@ -30,6 +30,8 @@ else
             <th>Restaurant Name</th>
             <th>Reservation Date</th>
             <th>Number of People</th>
+            <th>Status</th>
+            <th>Table</th>
             <th>Action</th>
         </tr>
 
@@ -41,11 +43,11 @@ else
                 </td>
 
                 <td>
-                    @Model.Restaurants.FirstOrDefault(r => r.RestaurantId == reservation.RestaurantId)?.Name
+                    @reservation.Restaurant?.Name
                 </td>
 
                 <td>
-                    @reservation.ReservationDate.ToString("MM/dd/yyyy")
+                    @reservation.ReservationDate.ToString("MM/dd/yyyy h:mm tt")
                 </td>
 
                 <td>
@@ -53,11 +55,123 @@ else
                 </td>
 
                 <td>
+                    @if (reservation.Status == ReservationStatus.Pending)
+                    {
+                        <span class="badge bg-warning text-dark"><i class="bi bi-hourglass-split"></i> Pending confirmation</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-success"><i class="bi bi-check-circle"></i> Confirmed</span>
+                    }
+                </td>
+
+                <td>
+                    @if (reservation.Table != null)
+                    {
+                        <span class="badge bg-secondary">@reservation.Table.Label</span>
+                    }
+                    else
+                    {
+                        <span class="text-muted">—</span>
+                    }
+                </td>
+
+                <td>
                     <div class="button-container">
+                        <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#receipt-@reservation.ReservationId" title="View Receipt">
+                            <i class="bi bi-receipt"></i> Details
+                        </button>
                         <a class="action-btn edit-delete-btn delete" href="/Client/Reservations/DeleteReservation/@reservation.ReservationId"><i class="bi bi-x-circle-fill"></i> Cancel</a>
                     </div>
                 </td>
             </tr>
         }
     </table>
+
+    @foreach (var reservation in Model.MyReservations)
+    {
+        <div class="modal fade" id="receipt-@reservation.ReservationId" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header no-print">
+                        <h5 class="modal-title"><i class="bi bi-receipt"></i> Reservation Receipt</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="receipt-print-area" id="receipt-content-@reservation.ReservationId">
+                            <div class="receipt">
+                                <div class="receipt-brand">
+                                    <partial name="_BrandIcon" /> Reserva
+                                </div>
+                                <div class="receipt-title">Reservation Receipt</div>
+                                <div class="receipt-ref">
+                                    <span>Reservation #@reservation.ReservationId.ToString("D6")</span>
+                                    <span>Booked @reservation.CreatedAt.ToString("MMM d, yyyy h:mm tt")</span>
+                                </div>
+
+                                <div class="receipt-divider"></div>
+
+                                <div class="receipt-section-label">Restaurant</div>
+                                <div class="receipt-row"><span class="receipt-strong">@reservation.Restaurant?.Name</span></div>
+                                <div class="receipt-row text-muted">@reservation.Restaurant?.Address</div>
+                                <div class="receipt-row text-muted">@reservation.Restaurant?.PhoneNumber</div>
+
+                                <div class="receipt-divider"></div>
+
+                                <div class="receipt-section-label">Guest</div>
+                                @if (!string.IsNullOrWhiteSpace(Model.CustomerName))
+                                {
+                                    <div class="receipt-row"><span class="receipt-strong">@Model.CustomerName</span></div>
+                                }
+                                <div class="receipt-row text-muted">@Model.CustomerEmail</div>
+
+                                <div class="receipt-divider"></div>
+
+                                <div class="receipt-section-label">Reservation Details</div>
+                                <div class="receipt-row">
+                                    <span>Date &amp; Time</span>
+                                    <span class="receipt-strong">@reservation.ReservationDate.ToString("MMM d, yyyy — h:mm tt")</span>
+                                </div>
+                                <div class="receipt-row">
+                                    <span>Party Size</span>
+                                    <span class="receipt-strong">@reservation.NumberOfPeople people</span>
+                                </div>
+                                <div class="receipt-row">
+                                    <span>Table</span>
+                                    <span class="receipt-strong">
+                                        @(reservation.Table != null ? $"{reservation.Table.Label} ({reservation.Table.SeatCount} seats)" : "Not assigned")
+                                    </span>
+                                </div>
+                                @if (reservation.Restaurant?.Category != null)
+                                {
+                                    <div class="receipt-row">
+                                        <span>Category</span>
+                                        <span class="receipt-strong">@reservation.Restaurant.Category.Name</span>
+                                    </div>
+                                }
+
+                                <div class="receipt-divider"></div>
+
+                                <div class="receipt-footer">Thank you for choosing Reserva.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer no-print">
+                        <button type="button" class="action-btn outline-btn" data-receipt-download-image="receipt-content-@reservation.ReservationId" data-receipt-filename="reservation-@reservation.ReservationId">
+                            <i class="bi bi-image"></i> Download Image
+                        </button>
+                        <button type="button" class="action-btn primary-btn" data-receipt-print>
+                            <i class="bi bi-filetype-pdf"></i> Download PDF
+                        </button>
+                        <button type="button" class="action-btn close-btn" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}
+
+@section Scripts {
+    <script src="~/lib/html2canvas/html2canvas.min.js"></script>
+    <script src="~/js/reservation-receipt.js"></script>
 }

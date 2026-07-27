@@ -27,7 +27,8 @@ namespace ReservationApp.Pages.Client.Reservations
 
         //Defining Classes as a List
         public IList<Reservation>? MyReservations { get; set; }
-        public IList<Restaurant>? Restaurants { get; set; } = new List<Restaurant>(); 
+        public string CustomerName { get; set; } = "";
+        public string CustomerEmail { get; set; } = "";
 
         //Async OnGet Method
         public async Task<IActionResult> OnGetAsync()
@@ -39,8 +40,14 @@ namespace ReservationApp.Pages.Client.Reservations
             return Redirect("/Identity/Account/Login");
         }
                                                            //Check for User Id
-        MyReservations = await _context.Reservations.Where(r => r.UserId == user.Id).ToListAsync();
-        Restaurants = await _context.Restaurants.ToListAsync();
+        MyReservations = await _context.Reservations
+            .Include(r => r.Restaurant).ThenInclude(rest => rest!.Category)
+            .Include(r => r.Table)
+            .Where(r => r.UserId == user.Id)
+            .OrderByDescending(r => r.ReservationDate)
+            .ToListAsync();
+        CustomerName = $"{user.FirstName} {user.LastName}".Trim();
+        CustomerEmail = user.Email ?? "";
 
         return Page();
         }
