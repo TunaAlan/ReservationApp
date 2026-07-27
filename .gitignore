@@ -12,3 +12,6 @@ ReservationApp/wwwroot/lib/
 
 ## Local secrets (see .env.example)
 .env
+
+## Local dev login automation (reads .env, writes session cookie jars)
+dev-automation/

@@ -5,6 +5,10 @@ services:
     environment:
       ACCEPT_EULA: "Y"
       MSSQL_SA_PASSWORD: "${SA_PASSWORD}"
+      # Defense in depth: app code no longer relies on the DB server's own clock for
+      # "now"/"today" (see ReservationApp Dockerfile comment), but keeping this in sync
+      # avoids surprises for anyone querying the DB directly (e.g. via sqlcmd).
+      TZ: Europe/Istanbul
     ports:
       - "1433:1433"
     volumes:
@@ -24,11 +28,18 @@ services:
       SeedAdmin__Password: "${SEED_ADMIN_PASSWORD:-}"
       SeedClient__Email: "${SEED_CLIENT_EMAIL:-}"
       SeedClient__Password: "${SEED_CLIENT_PASSWORD:-}"
+      SeedRestaurantOwner__Email: "${SEED_RESTAURANT_OWNER_EMAIL:-}"
+      SeedRestaurantOwner__Password: "${SEED_RESTAURANT_OWNER_PASSWORD:-}"
     ports:
       - "8080:8080"
     volumes:
       - reservationapp-dpkeys:/root/.aspnet/DataProtection-Keys
+      # Without this, uploaded photos (cover + gallery) live only in the container's
+      # writable layer and vanish on every `--build` rebuild. Docker seeds this volume
+      # from the image's existing Restaurant_Img contents the first time it's created.
+      - reservationapp-restaurant-images:/app/wwwroot/Restaurant_Img
 
 volumes:
   reservationapp-sqldata:
   reservationapp-dpkeys:
+  reservationapp-restaurant-images:

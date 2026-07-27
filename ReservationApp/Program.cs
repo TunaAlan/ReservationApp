@@ -54,6 +54,7 @@ if (app.Environment.IsDevelopment())
 
     await SeedUserAsync(userManager, app.Configuration, "SeedAdmin", "admin");
     await SeedUserAsync(userManager, app.Configuration, "SeedClient", "client");
+    await SeedUserAsync(userManager, app.Configuration, "SeedRestaurantOwner", "restaurant");
 }
 
 app.Run();
