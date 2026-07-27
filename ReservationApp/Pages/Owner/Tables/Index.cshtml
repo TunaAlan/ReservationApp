@@ -1,0 +1,120 @@
+@page
+@model ReservationApp.Pages.Owner.Tables.IndexModel
+@{
+    ViewData["Title"] = "My Tables";
+}
+
+<h2 class="text-center mb-4"><i class="bi bi-grid-3x3-gap"></i> Tables — @Model.Restaurant?.Name</h2>
+
+<div class="mb-3 d-flex justify-content-between align-items-center">
+    <a class="btn btn-outline-secondary" href="/Owner/Index"><i class="bi bi-arrow-left"></i> Back to Restaurant Information</a>
+    <a class="btn btn-primary" href="/Owner/Tables/Create"><i class="bi bi-plus-lg"></i> New Table</a>
+</div>
+
+<p class="text-muted">
+    Total capacity: <strong>@Model.RestaurantTables.Sum(t => t.SeatCount)</strong> seats across <strong>@Model.RestaurantTables.Count</strong> tables.
+    <span class="ms-2"><i class="bi bi-info-circle"></i> Click a table for its details and upcoming schedule.</span>
+</p>
+
+@if (!Model.RestaurantTables.Any())
+{
+    <div class="text-center text-muted py-5">
+        <i class="bi bi-grid-3x3-gap display-4"></i>
+        <p class="lead mt-3">No tables yet — your restaurant can't accept reservations until at least one table is added.</p>
+    </div>
+}
+else
+{
+    <div class="table-card-grid">
+        @foreach (var table in Model.RestaurantTables)
+        {
+            var status = Model.TableStatuses.GetValueOrDefault(table.TableId);
+            var isOccupied = status?.IsOccupiedNow == true;
+            <div class="table-card @(isOccupied ? "is-occupied" : "is-free")" data-bs-toggle="modal" data-bs-target="#table-@table.TableId">
+                <div class="table-card-icon"><i class="bi bi-square"></i></div>
+                <div class="table-card-label">@table.Label</div>
+                <div class="table-card-seats"><i class="bi bi-people"></i> @table.SeatCount seats</div>
+                <span class="badge @(isOccupied ? "bg-danger" : "bg-success")">@(isOccupied ? "Occupied" : "Free")</span>
+                <div class="table-card-next">
+                    @if (status?.NextReservation != null)
+                    {
+                        <span>Next: @status.NextReservation.Value.ToString("h:mm tt")</span>
+                    }
+                </div>
+            </div>
+        }
+    </div>
+
+    @foreach (var table in Model.RestaurantTables)
+    {
+        var status = Model.TableStatuses.GetValueOrDefault(table.TableId);
+        var isOccupied = status?.IsOccupiedNow == true;
+        var schedule = Model.WeeklyReservationsByTable.GetValueOrDefault(table.TableId, new());
+        <div class="modal fade" id="table-@table.TableId" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title"><i class="bi bi-square"></i> Table @table.Label</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <dl class="detail-list mb-4">
+                            <div class="detail-row">
+                                <dt><span class="detail-icon"><i class="bi bi-people"></i></span> Seats</dt>
+                                <dd>@table.SeatCount</dd>
+                            </div>
+                            <div class="detail-row">
+                                <dt><span class="detail-icon"><i class="bi bi-circle-fill"></i></span> Status</dt>
+                                <dd><span class="badge @(isOccupied ? "bg-danger" : "bg-success")">@(isOccupied ? "Occupied" : "Free")</span></dd>
+                            </div>
+                            <div class="detail-row detail-row-last">
+                                <dt><span class="detail-icon"><i class="bi bi-calendar-check"></i></span> Reservations Today</dt>
+                                <dd>@(status?.ReservationsToday ?? 0)</dd>
+                            </div>
+                        </dl>
+
+                        <h6 class="text-muted mb-2"><i class="bi bi-calendar-week"></i> This Week's Schedule</h6>
+                        @if (!schedule.Any())
+                        {
+                            <p class="text-muted mb-0"><i class="bi bi-check2-circle"></i> No reservations for this table in the next 7 days.</p>
+                        }
+                        else
+                        {
+                            <table class="table table-striped align-middle mb-0">
+                                <tr>
+                                    <th>Date &amp; Time</th>
+                                    <th>Guests</th>
+                                    <th>Customer</th>
+                                    <th>Status</th>
+                                </tr>
+                                @foreach (var reservation in schedule)
+                                {
+                                    <tr>
+                                        <td>@reservation.ReservationDate.ToString("ddd, MMM d — h:mm tt")</td>
+                                        <td>@reservation.NumberOfPeople</td>
+                                        <td>@(reservation.User?.Email ?? "—")</td>
+                                        <td>
+                                            @if (reservation.Status == ReservationApp.Models.ReservationStatus.Pending)
+                                            {
+                                                <span class="badge bg-warning text-dark"><i class="bi bi-hourglass-split"></i> Pending</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="badge bg-success"><i class="bi bi-check-circle"></i> Confirmed</span>
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            </table>
+                        }
+                    </div>
+                    <div class="modal-footer">
+                        <a class="action-btn edit-delete-btn" href="/Owner/Tables/Edit?id=@table.TableId"><i class="bi bi-pencil-fill"></i> Edit</a>
+                        <a class="action-btn edit-delete-btn delete" href="/Owner/Tables/Delete/@table.TableId"><i class="bi bi-trash-fill"></i> Delete</a>
+                        <button type="button" class="action-btn close-btn" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}
